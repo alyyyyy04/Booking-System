@@ -1,23 +1,26 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Features from './components/Features'
-import ServicesSection from './components/ServicesSection'
-import TeamSection from './components/TeamSection'
-import ContactSection from './components/ContactSection'
 import Footer from './components/Footer'
+import HomePage from './pages/HomePage'
+import BranchSelection from './pages/BranchSelection'
+import ServicesSelection from './pages/ServicesSelection'
+import StylistSelection from './pages/StylistSelection'
+import AppointmentDetails from './pages/AppointmentDetails'
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      <main>
-        <Hero />
-        <Features />
-        <ServicesSection />
-        <TeamSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="min-h-screen bg-white">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/book" element={<BranchSelection />} />
+          <Route path="/book/services" element={<ServicesSelection />} />
+          <Route path="/book/stylist" element={<StylistSelection />} />
+          <Route path="/book/details" element={<AppointmentDetails />} />
+        </Routes>
+        <Footer />
+      </div>
+    </BrowserRouter>
   )
 }

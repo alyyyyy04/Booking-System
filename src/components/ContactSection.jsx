@@ -1,20 +1,31 @@
-import { MapPin, Phone, Mail } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { MapPin, Phone } from 'lucide-react'
 
-const contactItems = [
+const branchContacts = [
   {
-    icon: MapPin,
-    title: 'Location',
-    lines: ['123 Beauty Street', 'New York, NY 10001'],
+    id: 'mandaue',
+    title: 'Mandaue Branch',
+    location: '6014 H. Abellana St, Mandaue, Cebu',
+    phone: '032 326 4014',
   },
   {
-    icon: Phone,
-    title: 'Phone',
-    lines: ['(555) 123-4567'],
+    id: 'pajac',
+    title: 'Pajac Branch',
+    location: 'Helenville Apt. Bankal Rd. Brgy, Lapu-Lapu, 6015 Cebu',
+    phone: '0956 279 6480',
   },
   {
-    icon: Mail,
-    title: 'Email',
-    lines: ['hello@elglamorous.com'],
+    id: 'pusok',
+    title: 'Pusok Branch',
+    location:
+      '8XFC+5H Menguito Building, M.L. Quezon National Highway, Lapu-Lapu, 6015 Cebu',
+    phone: '0956 279 6480',
+  },
+  {
+    id: 'cebu',
+    title: 'Cebu City Branch',
+    location: '8V6R+8VM, Don Gil, Cebu City, 6000 Cebu',
+    phone: '0999 325 7150',
   },
 ]
 
@@ -30,32 +41,36 @@ export default function ContactSection() {
             We&apos;d love to see you at our salon
           </p>
         </div>
-        <div className="mt-12 grid gap-8 sm:grid-cols-3">
-          {contactItems.map(({ icon: Icon, title, lines }) => (
+        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {branchContacts.map((branch) => (
             <div
-              key={title}
-              className="rounded-2xl bg-white p-6 text-center shadow-md transition hover:shadow-lg"
+              key={branch.id}
+              className="rounded-2xl bg-white p-6 text-left shadow-md transition hover:-translate-y-1 hover:shadow-lg"
             >
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent/10 text-accent">
-                <Icon className="h-7 w-7" strokeWidth={1.5} aria-hidden />
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 text-accent">
+                <MapPin className="h-6 w-6" strokeWidth={1.5} aria-hidden />
               </div>
-              <h3 className="mt-4 font-semibold text-gray-900">{title}</h3>
-              <div className="mt-2 space-y-1 text-gray-600">
-                {lines.map((line) => (
-                  <p key={line}>{line}</p>
-                ))}
+              <h3 className="mt-4 text-base font-semibold text-gray-900">
+                {branch.title}
+              </h3>
+              <div className="mt-2 space-y-1 text-sm text-gray-600">
+                <p>{branch.location}</p>
+              </div>
+              <div className="mt-3 flex items-center gap-2 text-sm font-medium text-gray-900">
+                <Phone className="h-4 w-4 text-accent" aria-hidden />
+                <span>{branch.phone}</span>
               </div>
             </div>
           ))}
         </div>
         <div id="book" className="mt-12 scroll-mt-24 text-center">
           <p className="text-gray-600">Ready to book your appointment?</p>
-          <a
-            href="#book"
+          <Link
+            to="/book"
             className="mt-4 inline-block rounded-full bg-accent px-8 py-3 font-medium text-white shadow-md transition hover:bg-accent-dark hover:shadow-lg"
           >
             Schedule Now
-          </a>
+          </Link>
         </div>
       </div>
     </section>

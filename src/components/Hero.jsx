@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Calendar, List } from 'lucide-react'
 
 const heroImage =
@@ -19,13 +20,13 @@ export default function Hero() {
           Experience luxury hair and beauty services with our expert team.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <a
-            href="#book"
+          <Link
+            to="/book"
             className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 font-medium text-white shadow-lg transition hover:bg-accent-dark hover:shadow-xl"
           >
             <Calendar className="h-5 w-5" aria-hidden />
             Book Appointment
-          </a>
+          </Link>
           <a
             href="#services"
             className="inline-flex items-center gap-2 rounded-lg border-2 border-white bg-transparent px-6 py-3 font-medium text-white transition hover:bg-white hover:text-gray-900"

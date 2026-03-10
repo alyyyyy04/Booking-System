@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Scissors, Menu, X } from 'lucide-react'
 
 const navLinks = [
-  { label: 'Services', href: '#services' },
-  { label: 'Our Team', href: '#team' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Our Team', href: '/#team' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 export default function Navbar() {
@@ -13,10 +14,10 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <a href="#" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <Scissors className="h-6 w-6 text-accent" strokeWidth={2} aria-hidden />
           <span className="text-xl font-semibold text-gray-900">EL Glamorous</span>
-        </a>
+        </Link>
 
         <button
           type="button"
@@ -43,13 +44,13 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <a
-              href="#book"
+            <Link
+              to="/book"
               className="rounded-full bg-accent px-5 py-2.5 font-medium text-white shadow-md transition hover:bg-accent-dark hover:shadow-lg md:mt-0 mt-2"
               onClick={() => setMobileOpen(false)}
             >
               Book Now
-            </a>
+            </Link>
           </div>
         </div>
       </nav>
