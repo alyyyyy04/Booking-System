@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Scissors, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
+import logo from '/logo.png'
 
 const navLinks = [
   { label: 'Services', href: '/#services' },
@@ -14,9 +15,15 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-2">
-          <Scissors className="h-6 w-6 text-accent" strokeWidth={2} aria-hidden />
-          <span className="text-xl font-semibold text-gray-900">EL Glamorous</span>
+        <Link to="/" className="flex items-center gap-3">
+          <img
+            src={logo}
+            alt="EL Glamorous"
+            className="h-9 w-9 rounded-full object-cover"
+          />
+          <span className="text-xl font-semibold text-gray-900">
+            EL Glamorous
+          </span>
         </Link>
 
         <button
