@@ -225,7 +225,8 @@ export default function ServicesSection() {
                                     Instructions
                                   </button>
                                   <Link
-                                    to="/book"
+                                    to="/book/services"
+                                    state={{ branchId: selectedBranchId, branchName }}
                                     className="inline-flex items-center justify-center rounded-lg bg-accent px-3 py-1.5 text-[11px] font-medium text-white shadow-sm transition hover:bg-accent-dark"
                                   >
                                     Book appointment
