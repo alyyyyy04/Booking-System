@@ -10,8 +10,9 @@ export default function ServicesSelection() {
   const navigate = useNavigate()
   const branchName = location.state?.branchName || 'Selected Branch'
   const branchId = location.state?.branchId
+  const initialServices = location.state?.initialServices || []
   const [expandedCategory, setExpandedCategory] = useState(null)
-  const [selectedServices, setSelectedServices] = useState([])
+  const [selectedServices, setSelectedServices] = useState(initialServices)
 
   const toggleServiceSelection = (service) => {
     setSelectedServices((prev) => {
