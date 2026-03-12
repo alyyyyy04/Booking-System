@@ -271,6 +271,7 @@ export const stylistsByBranch = {
     { name: 'Yekla, Sanny Grace', role: 'Facialist / Massage Therapist' },
     { name: 'Davis, Rosegina', role: 'Hair and Nail Technician' },
     { name: 'Momo, Ruthamie', role: 'Hair and Nail Technician' },
+    { name: 'Yaon, Jenipher', role: 'Senior Hairdresser' },
   ],
   pajac: [
     { name: 'Arnado, Buenafe', role: 'Nail Technician' },

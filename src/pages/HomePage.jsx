@@ -3,7 +3,6 @@ import Features from '../components/Features'
 import ServicesSection from '../components/ServicesSection'
 import TeamSection from '../components/TeamSection'
 import ContactSection from '../components/ContactSection'
-import Footer from '../components/Footer'
 
 export default function HomePage() {
   return (
@@ -13,7 +12,6 @@ export default function HomePage() {
       <ServicesSection />
       <TeamSection />
       <ContactSection />
-      <Footer />
     </main>
   )
 }
