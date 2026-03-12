@@ -103,7 +103,7 @@ export default function ContactSection() {
 
         {activeBranch && (
           <div className="fixed inset-0 z-40 flex items-start justify-center bg-black/50 px-4 py-6 sm:py-10">
-            <div className="mt-16 w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-3xl bg-white shadow-2xl sm:mt-20">
+            <div className="mt-16 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl sm:mt-20">
               <div className="flex items-center justify-between border-b border-gray-100 px-6 py-3 sm:px-8 sm:py-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-accent">
@@ -124,11 +124,11 @@ export default function ContactSection() {
                   Close
                 </button>
               </div>
-              <div className="overflow-auto px-4 pb-4 pt-2 sm:px-6">
+              <div className="px-4 pb-4 pt-2 sm:px-6">
                 <img
                   src={activeBranch.image}
                   alt={activeBranch.title}
-                  className="mx-auto h-auto max-h-[70vh] w-full max-w-full rounded-2xl object-contain"
+                  className="mx-auto h-auto w-full max-w-full rounded-2xl object-contain"
                 />
               </div>
             </div>
