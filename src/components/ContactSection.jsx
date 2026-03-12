@@ -102,8 +102,8 @@ export default function ContactSection() {
         </div>
 
         {activeBranch && (
-          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 px-4 py-6 sm:py-10">
-            <div className="w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-3xl bg-white shadow-2xl">
+          <div className="fixed inset-0 z-40 flex items-start justify-center bg-black/50 px-4 py-6 sm:py-10">
+            <div className="mt-16 w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-3xl bg-white shadow-2xl sm:mt-20">
               <div className="flex items-center justify-between border-b border-gray-100 px-6 py-3 sm:px-8 sm:py-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-accent">
