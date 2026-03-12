@@ -6,7 +6,7 @@ const branchContacts = [
     id: 'mandaue',
     title: 'Mandaue Branch',
     image:
-      'Mandaue Brancnh.png',
+      'Mandaue Branch.png',
   },
   {
     id: 'pajac',
@@ -102,8 +102,8 @@ export default function ContactSection() {
         </div>
 
         {activeBranch && (
-          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 px-4 py-10">
-            <div className="w-full max-w-3xl overflow-hidden rounded-3xl bg-white shadow-2xl">
+          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 px-4 py-6 sm:py-10">
+            <div className="w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-3xl bg-white shadow-2xl">
               <div className="flex items-start justify-between border-b border-gray-100 px-6 py-4 sm:px-8">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-accent">
@@ -124,11 +124,11 @@ export default function ContactSection() {
                   Close
                 </button>
               </div>
-              <div className="overflow-hidden">
+              <div className="overflow-auto px-4 pb-4 pt-2 sm:px-6">
                 <img
                   src={activeBranch.image}
                   alt={activeBranch.title}
-                  className="h-72 w-full object-cover sm:h-80"
+                  className="mx-auto h-auto max-h-[70vh] w-full max-w-full rounded-2xl object-contain"
                 />
               </div>
             </div>
