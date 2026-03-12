@@ -6,25 +6,25 @@ const branchContacts = [
     id: 'mandaue',
     title: 'Mandaue Branch',
     image:
-      'https://images.unsplash.com/photo-1559598419-6b8c5f111d5c?w=1200&q=80',
+      'Mandaue Brancnh.png',
   },
   {
     id: 'pajac',
     title: 'Pajac Branch',
     image:
-      'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&q=80',
+      'Pajac Branch.jpg',
   },
   {
     id: 'pusok',
     title: 'Pusok Branch',
     image:
-      'https://images.unsplash.com/photo-1504274066651-8d31a536b11a?w=1200&q=80',
+      'Pusok Branch.jpg',
   },
   {
     id: 'cebu',
     title: 'Cebu City Branch',
     image:
-      'https://images.unsplash.com/photo-1494797710133-75adf6c1f4a3?w=1200&q=80',
+      'Cebu Branch.jpg',
   },
 ]
 
