@@ -4,10 +4,10 @@ import { Menu, X } from 'lucide-react'
 import logo from '/background.jpg'
 
 const navLinks = [
-  { label: 'Services', href: '/#services' },
-  { label: 'Products', href: '/#products' },
-  { label: 'Our Team', href: '/#team' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Services', to: '/#services' },
+  { label: 'Products', to: '/products' },
+  { label: 'Our Team', to: '/#team' },
+  { label: 'Contact', to: '/#contact' },
 ]
 
 export default function Navbar() {
@@ -43,14 +43,14 @@ export default function Navbar() {
         >
           <div className="flex flex-col px-4 py-4 md:flex-row md:items-center md:gap-8 md:px-0 md:py-0">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
+              <Link
+                key={link.to}
+                to={link.to}
                 className="py-2 text-gray-700 transition hover:text-accent md:py-0"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
