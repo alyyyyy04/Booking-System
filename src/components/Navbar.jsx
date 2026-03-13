@@ -5,6 +5,7 @@ import logo from '/background.jpg'
 
 const navLinks = [
   { label: 'Services', href: '/#services' },
+  { label: 'Products', href: '/#products' },
   { label: 'Our Team', href: '/#team' },
   { label: 'Contact', href: '/#contact' },
 ]
@@ -51,13 +52,6 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <Link
-              to="/book"
-              className="rounded-full bg-accent px-5 py-2.5 font-medium text-white shadow-md transition hover:bg-accent-dark hover:shadow-lg md:mt-0 mt-2"
-              onClick={() => setMobileOpen(false)}
-            >
-              Book Now
-            </Link>
           </div>
         </div>
       </nav>
