@@ -4,10 +4,10 @@ import { Menu, X } from 'lucide-react'
 import logo from '/background.jpg'
 
 const navLinks = [
-  { label: 'Services', to: '/#services' },
+  { label: 'Services', href: '/#services' },
   { label: 'Products', to: '/products' },
-  { label: 'Our Team', to: '/#team' },
-  { label: 'Contact', to: '/#contact' },
+  { label: 'Our Team', href: '/#team' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 export default function Navbar() {
@@ -42,16 +42,27 @@ export default function Navbar() {
           }`}
         >
           <div className="flex flex-col px-4 py-4 md:flex-row md:items-center md:gap-8 md:px-0 md:py-0">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className="py-2 text-gray-700 transition hover:text-accent md:py-0"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) =>
+              link.to ? (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  className="py-2 text-gray-700 transition hover:text-accent md:py-0"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="py-2 text-gray-700 transition hover:text-accent md:py-0"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ),
+            )}
           </div>
         </div>
       </nav>
