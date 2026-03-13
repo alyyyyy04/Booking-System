@@ -23,7 +23,7 @@ export default function Navbar() {
             className="h-9 w-9 rounded-full object-cover"
           />
           <span className="text-xl font-semibold text-gray-900">
-            EL Glamorous
+            EL Glamorous Face and Body Clinic, Salon and Spa
           </span>
         </Link>
 
