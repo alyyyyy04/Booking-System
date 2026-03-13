@@ -19,7 +19,7 @@ export default function Navbar() {
         <Link to="/" className="flex items-center gap-3">
           <img
             src={logo}
-            alt="EL Glamorous"
+            alt="EL. Glamorous Face and Body Clinic, Salon and Spa"
             className="h-9 w-9 rounded-full object-cover"
           />
           <span className="text-xl font-semibold text-gray-900">
