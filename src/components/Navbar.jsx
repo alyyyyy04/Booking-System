@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
-import logo from '/circle.jpg'
+import logo from '/circle.png'
 
 const navLinks = [
   { label: 'Services', href: '/#services' },
