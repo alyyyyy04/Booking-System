@@ -1,11 +1,25 @@
 import { useState } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { ArrowLeft, Calendar, CheckCircle, User } from 'lucide-react'
+import { push, ref, serverTimestamp } from 'firebase/database'
+import { database, ensureAnonymousAuth } from '../firebase'
+
+const parsePriceToNumber = (rawPrice) => {
+  if (typeof rawPrice === 'number') return rawPrice
+  if (typeof rawPrice !== 'string') return 0
+
+  const firstNumericChunk = rawPrice.match(/[0-9,]+(\.\d+)?/)
+  if (!firstNumericChunk) return 0
+
+  return Number(firstNumericChunk[0].replace(/,/g, '')) || 0
+}
 
 export default function AppointmentDetails() {
   const location = useLocation()
-  const { branchName, services, stylist } = location.state || {}
+  const { branchName, services, stylists } = location.state || {}
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const [form, setForm] = useState({
     name: '',
     phone: '',
@@ -15,12 +29,64 @@ export default function AppointmentDetails() {
   })
 
   const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    const { name, value } = e.target
+
+    if (name === 'phone') {
+      const digitsOnly = value.replace(/\D/g, '').slice(0, 11)
+      setForm((prev) => ({ ...prev, phone: digitsOnly }))
+      return
+    }
+
+    if (name === 'notes') {
+      setForm((prev) => ({ ...prev, notes: value.slice(0, 200) }))
+      return
+    }
+
+    setForm((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
+    setSubmitError('')
+    setSubmitting(true)
+    try {
+      await ensureAnonymousAuth()
+      const normalizedServices = services.map((service) => ({
+        name: service.name,
+        price: parsePriceToNumber(service.price),
+        commissionRate: 0,
+        commissionAmount: 0,
+      }))
+
+      await push(ref(database, 'appointments'), {
+        customerName: form.name,
+        phone: form.phone,
+        preferredDate: form.date,
+        preferredTime: form.time,
+        notes: form.notes || '',
+        branchName,
+        services: normalizedServices,
+        stylists: stylists || [],
+        status: 'pending',
+        createdAt: serverTimestamp(),
+      })
+      setSubmitted(true)
+    } catch (error) {
+      if (error?.code === 'auth/admin-restricted-operation') {
+        setSubmitError(
+          'Anonymous sign-in is disabled in Firebase Auth. Enable Anonymous provider in Authentication > Sign-in method.',
+        )
+      } else if (error?.code === 'PERMISSION_DENIED') {
+        setSubmitError(
+          'Firebase denied write access. Please update Realtime Database rules to allow writing appointments.',
+        )
+      } else {
+        setSubmitError('Failed to save booking request. Please try again.')
+      }
+      console.error('Failed to save appointment:', error)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (!branchName || !services || services.length === 0) {
@@ -34,38 +100,66 @@ export default function AppointmentDetails() {
     )
   }
 
-  if (submitted) {
-    return (
-      <div className="mx-auto max-w-md px-4 py-12 text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
-          <CheckCircle className="h-10 w-10" />
+ if (submitted) {
+  return (
+    <div className="flex items-center justify-center min-h-[80vh] px-4">
+      <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-6 text-center">
+
+        {/* Success Icon */}
+        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
+          <CheckCircle className="h-12 w-12 text-green-600" />
         </div>
-        <h2 className="mt-4 text-2xl font-bold text-gray-900">
-          Request received
+
+        {/* Title */}
+        <h2 className="mt-4 text-3xl font-bold text-gray-900">
+          Request Received
         </h2>
-        <div className="mt-2 space-y-1 text-gray-600">
-          <p>
-            We will confirm your appointment at <strong>{branchName}</strong> for
-            the following services:
+
+        {/* Subtitle */}
+        <p className="mt-2 text-sm text-gray-500">
+          Your appointment request has been submitted successfully.
+        </p>
+
+        {/* Branch */}
+        <p className="mt-3 font-semibold text-gray-800">
+          📍 {branchName}
+        </p>
+
+        {/* Services List */}
+        <div className="mt-4 text-left">
+          <p className="text-sm text-gray-600 mb-2">
+            Selected Services:
           </p>
-          <ul className="mt-2 list-inside list-disc text-left text-sm">
+
+          <div className="divide-y">
             {services.map((service) => (
-              <li key={`${service.name}-${service.price}`}>
-                <span className="font-medium text-gray-900">{service.name}</span>{' '}
-                <span className="text-accent font-semibold">{service.price}</span>
-              </li>
+              <div
+                key={`${service.name}-${service.price}`}
+                className="flex justify-between py-2 text-sm"
+              >
+                <span className="text-gray-800 font-medium">
+                  {service.name}
+                </span>
+                <span className="font-semibold text-accent">
+                  {service.price}
+                </span>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
+
+        {/* Single Button */}
         <Link
           to="/"
-          className="mt-6 inline-block rounded-lg bg-accent px-6 py-3 font-medium text-white hover:bg-accent-dark"
+          className="mt-6 block w-full rounded-lg bg-accent py-3 font-medium text-white hover:bg-accent-dark"
         >
-          Back to home
+          Back to Home
         </Link>
+
       </div>
-    )
-  }
+    </div>
+  )
+}
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -111,11 +205,22 @@ export default function AppointmentDetails() {
               </div>
               <div className="text-sm">
                 <p className="text-gray-500">Preferred stylist</p>
-                <p className="font-medium text-gray-900">
-                  {stylist?.name || 'Any available stylist'}
-                </p>
-                {stylist?.role && (
-                  <p className="text-xs text-gray-500">{stylist.role}</p>
+                {stylists && stylists.length > 0 ? (
+                  <ul className="mt-1 space-y-1 text-sm">
+                    {stylists.map((s) => (
+                      <li key={s.name} className="flex flex-col">
+                        <span className="font-medium text-gray-900">{s.name}</span>
+                        <span className="text-xs text-gray-500">
+                          {s.role}
+                          {s.specialty ? ` • ${s.specialty}` : ''}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="font-medium text-gray-900">
+                    Any available stylist
+                  </p>
                 )}
               </div>
             </div>
@@ -146,6 +251,10 @@ export default function AppointmentDetails() {
                 required
                 value={form.phone}
                 onChange={handleChange}
+                inputMode="numeric"
+                pattern="^09\d{9}$"
+                title="Use 11-digit PH number (e.g. 09XXXXXXXXX)"
+                maxLength={11}
                 className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-accent focus:ring-1 focus:ring-accent"
               />
             </div>
@@ -189,15 +298,24 @@ export default function AppointmentDetails() {
                 rows={3}
                 value={form.notes}
                 onChange={handleChange}
+                maxLength={200}
+                placeholder="Maximum 200 characters"
                 className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-accent focus:ring-1 focus:ring-accent"
               />
+              <p className="mt-1 text-xs text-gray-500">{form.notes.length}/200</p>
             </div>
+            {submitError ? (
+              <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-700">
+                {submitError}
+              </p>
+            ) : null}
             <button
               type="submit"
+              disabled={submitting}
               className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent py-3 font-medium text-white transition hover:bg-accent-dark"
             >
               <Calendar className="h-5 w-5" />
-              Confirm booking request
+              {submitting ? 'Saving booking...' : 'Confirm booking request'}
             </button>
           </form>
         </div>

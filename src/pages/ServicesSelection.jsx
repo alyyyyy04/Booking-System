@@ -13,6 +13,7 @@ export default function ServicesSelection() {
   const initialServices = location.state?.initialServices || []
   const [expandedCategory, setExpandedCategory] = useState(null)
   const [selectedServices, setSelectedServices] = useState(initialServices)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const toggleServiceSelection = (service) => {
     setSelectedServices((prev) => {
@@ -59,10 +60,28 @@ export default function ServicesSelection() {
           </p>
         </div>
 
+        <div className="mb-6 max-w-xs">
+          <label
+            htmlFor="service-search"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Search services
+          </label>
+          <input
+            id="service-search"
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Type a service name, e.g. haircut, facial, massage..."
+            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          />
+        </div>
+
         <div className="space-y-4">
           {serviceCategories.map((category) => {
             const Icon = categoryIcons[category.icon] || Sparkles
-            const isExpanded = expandedCategory === category.id
+            const hasSearch = searchQuery.trim().length > 0
+            const isExpanded = hasSearch || expandedCategory === category.id
             return (
               <div
                 key={category.id}
@@ -95,6 +114,14 @@ export default function ServicesSelection() {
                           </h3>
                           <ul className="space-y-2">
                             {group.services.map((service) => {
+                              if (
+                                searchQuery &&
+                                !service.name
+                                  .toLowerCase()
+                                  .includes(searchQuery.toLowerCase())
+                              ) {
+                                return null
+                              }
                               const isSelected = selectedServices.some(
                                 (item) =>
                                   item.name === service.name &&

@@ -261,7 +261,7 @@ export const serviceCategories = [
 export const branches = [
   { id: 'pusok', name: 'Pusok Branch', icon: 'map-pin' },
   { id: 'pajac', name: 'Pajac Branch', icon: 'map-pin' },
-  { id: 'mandaue', name: 'Mandaue Branch', icon: 'map-pin' },
+  { id: 'mandaue', name: 'Mandaue City Branch', icon: 'map-pin' },
   { id: 'cebu', name: 'Cebu City Branch', icon: 'map-pin' },
 ]
 

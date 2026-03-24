@@ -1,9 +1,7 @@
 import Hero from '../components/Hero'
 import Features from '../components/Features'
 import ServicesSection from '../components/ServicesSection'
-import ProductsSection from '../components/ProductsSection'
-import TeamSection from '../components/TeamSection'
-import ContactSection from '../components/ContactSection'
+import TestimonialsSection from '../components/TestimonialsSection'
 
 export default function HomePage() {
   return (
@@ -11,9 +9,7 @@ export default function HomePage() {
       <Hero />
       <Features />
       <ServicesSection />
-      <ProductsSection />
-      <TeamSection />
-      <ContactSection />
+      <TestimonialsSection />
     </main>
   )
 }

@@ -2,6 +2,16 @@ import { useNavigate } from 'react-router-dom'
 import { MapPin } from 'lucide-react'
 import { branches } from '../data/servicesData'
 
+const branchAddresses = {
+  pusok:
+    'Menguito Building, ML Quezon National Highway, Pusok, Lapu-Lapu City, Cebu, 6015',
+  pajac:
+    'Helenville Apartment, Bankal Road, Pajac, Lapu-Lapu City, Cebu, 6015',
+  mandaue:
+    '2nd Floor, Paradise Square, H. Abellana St, Mandaue City, Cebu, 6014',
+  cebu: '8V6R+8VM, Don Gil, Cebu City, 6000',
+}
+
 export default function BranchSelection() {
   const navigate = useNavigate()
 
@@ -34,8 +44,8 @@ export default function BranchSelection() {
               <span className="mt-4 text-lg font-semibold text-gray-900">
                 {branch.name}
               </span>
-              <span className="mt-1 text-sm text-gray-500">
-                Click to continue
+              <span className="mt-1 text-xs text-gray-500 text-center">
+                {branchAddresses[branch.id]}
               </span>
             </button>
           ))}

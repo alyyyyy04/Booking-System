@@ -1,24 +1,39 @@
 import { useState } from 'react'
 import { useLocation, useNavigate, Link } from 'react-router-dom'
-import { User, Users, ArrowLeft } from 'lucide-react'
+import { Users, ArrowLeft } from 'lucide-react'
 import { stylistsByBranch } from '../data/servicesData'
+import {
+  getInitials,
+  getStylistPhotoCandidates,
+  handleStylistPhotoError,
+} from '../utils/stylistPhotos'
 
 export default function StylistSelection() {
   const location = useLocation()
   const navigate = useNavigate()
   const { branchId, branchName, services } = location.state || {}
-  const [selectedStylist, setSelectedStylist] = useState(null)
+  const [selectedStylists, setSelectedStylists] = useState([])
 
   const stylists = branchId ? stylistsByBranch[branchId] || [] : []
 
+  const toggleStylist = (stylist) => {
+    setSelectedStylists((prev) => {
+      const exists = prev.find((s) => s.name === stylist.name)
+      if (exists) {
+        return prev.filter((s) => s.name !== stylist.name)
+      }
+      return [...prev, stylist]
+    })
+  }
+
   const handleContinue = () => {
-    if (!selectedStylist) return
+    if (!selectedStylists.length) return
     navigate('/book/details', {
       state: {
         branchId,
         branchName,
         services,
-        stylist: selectedStylist,
+        stylists: selectedStylists,
       },
     })
   }
@@ -75,19 +90,31 @@ export default function StylistSelection() {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {stylists.map((stylist) => {
-            const isSelected =
-              selectedStylist && selectedStylist.name === stylist.name
+            const isSelected = selectedStylists.some(
+              (s) => s.name === stylist.name,
+            )
+            const photoCandidates = getStylistPhotoCandidates(stylist.name)
             return (
               <button
                 key={stylist.name}
                 type="button"
-                onClick={() => setSelectedStylist(stylist)}
+                onClick={() => toggleStylist(stylist)}
                 className={`flex flex-col items-start rounded-2xl border-2 bg-white p-5 text-left shadow-md transition hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${
                   isSelected ? 'border-accent' : 'border-gray-200'
                 }`}
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 text-accent">
-                  <User className="h-6 w-6" />
+                <div className="relative h-12 w-12 overflow-hidden rounded-full bg-accent/10">
+                  <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-accent">
+                    {getInitials(stylist.name)}
+                  </div>
+                  <img
+                    src={photoCandidates[0]}
+                    alt={`${stylist.name} profile`}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    loading="lazy"
+                    data-photo-index="0"
+                    onError={(e) => handleStylistPhotoError(e, photoCandidates)}
+                  />
                 </div>
                 <p className="mt-3 text-sm font-medium uppercase tracking-wide text-gray-500">
                   {stylist.role}
@@ -118,12 +145,12 @@ export default function StylistSelection() {
           </p>
         )}
 
-        <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
           <button
             type="button"
             onClick={() =>
               navigate('/book/details', {
-                state: { branchId, branchName, services, stylist: null },
+                state: { branchId, branchName, services, stylists: [] },
               })
             }
             className="rounded-lg border border-gray-300 bg-white px-5 py-3 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50"
@@ -133,10 +160,10 @@ export default function StylistSelection() {
           <button
             type="button"
             onClick={handleContinue}
-            disabled={!selectedStylist}
+            disabled={!selectedStylists.length}
             className="rounded-lg bg-accent px-6 py-3 text-sm font-medium text-white shadow-md transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-600"
           >
-            Continue with selected stylist
+            Continue with selected stylists
           </button>
         </div>
       </div>

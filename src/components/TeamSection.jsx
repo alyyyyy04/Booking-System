@@ -1,6 +1,11 @@
 import { useState } from 'react'
 import { MapPin, Users } from 'lucide-react'
 import { branches, stylistsByBranch } from '../data/servicesData'
+import {
+  getInitials,
+  getStylistPhotoCandidates,
+  handleStylistPhotoError,
+} from '../utils/stylistPhotos'
 
 const branchCards = [
   { id: 'mandaue', label: 'Mandaue Branch' },
@@ -108,24 +113,42 @@ export default function TeamSection() {
                   </p>
                 ) : (
                   <ul className="grid gap-4 sm:grid-cols-2">
-                    {currentStylists.map((stylist) => (
-                      <li
-                        key={stylist.name}
-                        className="rounded-2xl bg-gray-50 px-4 py-3 text-sm"
-                      >
-                        <p className="font-semibold text-gray-900">
-                          {stylist.name}
-                        </p>
-                        <p className="mt-0.5 text-accent text-xs font-medium uppercase tracking-wide">
-                          {stylist.role}
-                        </p>
-                        {stylist.specialty && (
-                          <p className="mt-1 text-xs text-gray-500">
-                            {stylist.specialty}
-                          </p>
-                        )}
-                      </li>
-                    ))}
+                    {currentStylists.map((stylist) => {
+                      const photoCandidates = getStylistPhotoCandidates(stylist.name)
+                      return (
+                        <li
+                          key={stylist.name}
+                          className="flex items-center gap-3 rounded-2xl bg-gray-50 px-4 py-3 text-sm"
+                        >
+                          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-accent/10">
+                            <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-accent">
+                              {getInitials(stylist.name)}
+                            </div>
+                            <img
+                              src={photoCandidates[0]}
+                              alt={`${stylist.name} profile`}
+                              className="absolute inset-0 h-full w-full object-cover"
+                              loading="lazy"
+                              data-photo-index="0"
+                              onError={(e) => handleStylistPhotoError(e, photoCandidates)}
+                            />
+                          </div>
+                          <div>
+                            <p className="font-semibold text-gray-900">
+                              {stylist.name}
+                            </p>
+                            <p className="mt-0.5 text-accent text-xs font-medium uppercase tracking-wide">
+                              {stylist.role}
+                            </p>
+                            {stylist.specialty && (
+                              <p className="mt-1 text-xs text-gray-500">
+                                {stylist.specialty}
+                              </p>
+                            )}
+                          </div>
+                        </li>
+                      )
+                    })}
                   </ul>
                 )}
               </div>

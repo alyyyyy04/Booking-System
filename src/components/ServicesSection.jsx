@@ -1,49 +1,39 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { Sparkles, Scissors, Heart } from 'lucide-react'
-import { serviceCategories, branches } from '../data/servicesData'
+import { serviceCategories } from '../data/servicesData'
 
 const categoryMeta = {
   'face-beauty': {
     image:
-      'Face.png',
+      'https://media.istockphoto.com/id/1399469980/photo/close-up-portrait-of-anorganic-facial-mask-application-at-spa-salon-facial-treatment-skin.jpg?s=612x612&w=0&k=20&c=ZvZi_bdGLicsykUtlrHgQe70ftZzd_xPKvq2vzfOyV0=',
     icon: Sparkles,
     description:
       'Facial treatments, lashes, semi-permanent makeup, and advanced skin care.',
   },
   'hair-styling': {
     image:
-      'hair.png',
+      'https://media.istockphoto.com/id/1138252695/photo/woman-at-hair-salon.jpg?s=612x612&w=0&k=20&c=VfottXG-WF8Lr9o6zdgbU1bbZp0OcHdzdmz8j6LcaIU=',
     icon: Scissors,
     description:
       'Cuts, color, treatments, rebonding, Brazilian, and event-ready hair styling.',
   },
   'body-nail-wellness': {
     image:
-      'nails.png',
+      'https://images.squarespace-cdn.com/content/v1/553640b0e4b06779e02ce9a6/d40a9cfb-09b9-4437-863e-de47c6274efa/unnamed-2.webp',
     icon: Heart,
     description:
       'Massages, body care, slimming, nail services, and wellness drips.',
   },
 }
 
-const viewingBranches = branches.filter((b) =>
-  ['pusok', 'pajac', 'mandaue', 'cebu'].includes(b.id),
-)
-
 export default function ServicesSection() {
   const [activeCategoryId, setActiveCategoryId] = useState('hair-styling')
-  const [selectedBranchId, setSelectedBranchId] = useState('pusok')
   const [openSubcategory, setOpenSubcategory] = useState(null)
   const [showModal, setShowModal] = useState(false)
-  const [instructionsFor, setInstructionsFor] = useState(null)
 
   const activeCategory = serviceCategories.find(
     (cat) => cat.id === activeCategoryId,
   )
-  const branchName =
-    viewingBranches.find((b) => b.id === selectedBranchId)?.name ||
-    'Selected Branch'
 
   const handleToggleSubcategory = (name) => {
     setOpenSubcategory((prev) => (prev === name ? null : name))
@@ -66,7 +56,7 @@ export default function ServicesSection() {
         </div>
 
         {/* Category cards */}
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
+          <div className="mt-12 grid gap-8 md:grid-cols-3">
           {serviceCategories.map((category) => {
             const meta = categoryMeta[category.id]
             if (!meta) return null
@@ -121,20 +111,17 @@ export default function ServicesSection() {
             )
           })}
         </div>
-        {/* Modal overlay for active category & branch services */}
+        {/* Modal overlay for active category services */}
         {showModal && activeCategory && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-8">
             <div className="relative max-h-[100vh] w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl">
               <div className="flex items-start justify-between border-b border-gray-100 px-6 py-4 sm:px-8">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-accent">
-                    Services in your area
-                  </p>
                   <h3 className="mt-1 text-xl font-semibold text-gray-900 sm:text-2xl">
                     {activeCategory.title}
                   </h3>
                   <p className="mt-1 text-xs text-gray-600 sm:text-sm">
-                    Choose a branch, then expand a section to see detailed services.
+                    Expand a section to see the services included in this category.
                   </p>
                 </div>
                 <button
@@ -144,32 +131,6 @@ export default function ServicesSection() {
                 >
                   Close
                 </button>
-              </div>
-
-              <div className="border-b border-gray-100 px-6 py-3 sm:px-8">
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">
-                  View services for branch
-                </p>
-                <div className="mt-2 inline-flex flex-wrap gap-2">
-                  {viewingBranches.map((branch) => (
-                    <button
-                      key={branch.id}
-                      type="button"
-                      onClick={() => setSelectedBranchId(branch.id)}
-                      className={`rounded-full px-3.5 py-1.5 text-[11px] font-medium shadow-sm transition ${
-                        selectedBranchId === branch.id
-                          ? 'bg-accent text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      }`}
-                    >
-                      {branch.name}
-                    </button>
-                  ))}
-                </div>
-                <p className="mt-2 text-[11px] text-gray-500 sm:text-xs">
-                  Showing services available in{' '}
-                  <span className="font-semibold text-gray-800">{branchName}</span>.
-                </p>
               </div>
 
               <div className="max-h-[60vh] space-y-4 overflow-y-auto px-6 py-4 sm:px-8">
@@ -205,39 +166,9 @@ export default function ServicesSection() {
                                     {service.name}
                                   </p>
                                 </div>
-                                <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-4">
-                                  <span className="text-accent font-semibold">
-                                    {service.price}
-                                  </span>
-                                  <button
-                                    type="button"
-                                    onClick={() =>
-                                      setInstructionsFor({
-                                        branchName,
-                                        categoryTitle: activeCategory.title,
-                                        subcategory: group.subcategory,
-                                        name: service.name,
-                                        price: service.price,
-                                      })
-                                    }
-                                    className="text-[11px] font-semibold text-accent underline decoration-accent/50 underline-offset-4 transition hover:text-accent-dark"
-                                  >
-                                    Instructions
-                                  </button>
-                                  <Link
-                                    to="/book/services"
-                                    state={{
-                                      branchId: selectedBranchId,
-                                      branchName,
-                                      initialServices: [
-                                        { name: service.name, price: service.price },
-                                      ],
-                                    }}
-                                    className="inline-flex items-center justify-center rounded-lg bg-accent px-3 py-1.5 text-[11px] font-medium text-white shadow-sm transition hover:bg-accent-dark"
-                                  >
-                                    Book appointment
-                                  </Link>
-                                </div>
+                                <span className="mt-1 text-right text-accent font-semibold sm:mt-0">
+                                  {service.price}
+                                </span>
                               </li>
                             ))}
                           </ul>
@@ -248,66 +179,6 @@ export default function ServicesSection() {
                 })}
               </div>
             </div>
-
-            {/* Instructions modal (nested) */}
-            {instructionsFor && (
-              <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 px-4 py-10">
-                <div className="w-full max-w-2xl overflow-hidden rounded-3xl bg-white shadow-2xl">
-                  <div className="flex items-start justify-between border-b border-gray-100 px-6 py-4">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-accent">
-                        Service instructions
-                      </p>
-                      <h4 className="mt-1 text-lg font-semibold text-gray-900">
-                        {instructionsFor.name}
-                      </h4>
-                      <p className="mt-1 text-xs text-gray-600">
-                        {instructionsFor.branchName} • {instructionsFor.categoryTitle} •{' '}
-                        {instructionsFor.subcategory}
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setInstructionsFor(null)}
-                      className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-200"
-                    >
-                      Close
-                    </button>
-                  </div>
-                  <div className="px-6 py-5 text-sm text-gray-700">
-                    <div className="rounded-2xl bg-gray-50 p-4">
-                      <p className="font-medium text-gray-900">Before your appointment</p>
-                      <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
-                        <li>Arrive 10–15 minutes early for check-in.</li>
-                        <li>
-                          If you have sensitivities or allergies, mention them during
-                          booking.
-                        </li>
-                        <li>
-                          Bring inspiration photos if you have a specific look in mind.
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="mt-4 rounded-2xl bg-gray-50 p-4">
-                      <p className="font-medium text-gray-900">Aftercare (general)</p>
-                      <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
-                        <li>Follow your specialist’s aftercare recommendations.</li>
-                        <li>For best results, avoid harsh products for 24 hours.</li>
-                        <li>
-                          If you experience unusual discomfort, contact the branch.
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="mt-4 flex items-center justify-between rounded-2xl bg-white px-4 py-3 shadow-sm">
-                      <span className="text-gray-500">Price</span>
-                      <span className="text-accent font-semibold">
-                        {instructionsFor.price}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         )}
       </div>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Calendar, List } from 'lucide-react'
 
 const heroImage =
-  'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&q=80'
+  'elglam.jpg'
 
 export default function Hero() {
   return (
