@@ -10,7 +10,7 @@ import {
 
 const branchContacts = [
   {
-    id: 'mandaue city',
+    id: 'mandaue',
     title: 'Mandaue City Branch',
     image:
       'Mandaue Branch.png',
@@ -28,7 +28,7 @@ const branchContacts = [
       'Pusok Branch.jpg',
   },
   {
-    id: 'cebu city',
+    id: 'cebu',
     title: 'Cebu City Branch',
     image:
       'Cebu Branch.jpg',
