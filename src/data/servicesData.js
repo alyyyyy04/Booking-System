@@ -253,10 +253,10 @@ export const serviceCategories = [
 // BRANCHES & STAFF
 // ==========================
 export const branches = [
-  { id: 'mandaue', name: 'Mandaue Branch' },
+  { id: 'mandaue city', name: 'Mandaue City Branch' },
   { id: 'pajac', name: 'Pajac Branch' },
   { id: 'pusok', name: 'Pusok Branch' },
-  { id: 'cebu', name: 'Cebu Branch' },
+  { id: 'cebu city', name: 'Cebu City Branch' },
 ]
 
 export const stylistsByBranch = {

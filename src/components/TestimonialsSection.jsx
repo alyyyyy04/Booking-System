@@ -19,7 +19,7 @@ export default function TestimonialsSection() {
               “Best salon experience I&apos;ve had in Cebu. The staff are warm and
               very professional.”
               <span className="mt-2 block text-xs font-semibold text-gray-500">
-                — Maria, regular at Mandaue Branch
+                — Maria, regular at Mandaue City Branch
               </span>
             </blockquote>
             <blockquote className="rounded-2xl bg-white p-4">

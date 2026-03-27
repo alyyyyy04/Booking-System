@@ -8,10 +8,10 @@ import {
 } from '../utils/stylistPhotos'
 
 const branchCards = [
-  { id: 'mandaue', label: 'Mandaue Branch' },
+  { id: 'mandaue city', label: 'Mandaue City Branch' },
   { id: 'pajac', label: 'Pajac Branch' },
   { id: 'pusok', label: 'Pusok Branch' },
-  { id: 'cebu', label: 'Cebu City Branch' },
+  { id: 'cebu city', label: 'Cebu City Branch' },
 ]
 
 export default function TeamSection() {

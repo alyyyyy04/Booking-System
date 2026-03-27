@@ -7,7 +7,7 @@ const branchAddresses = {
     'Menguito Building, ML Quezon National Highway, Pusok, Lapu-Lapu City, Cebu, 6015',
   pajac:
     'Helenville Apartment, Bankal Road, Pajac, Lapu-Lapu City, Cebu, 6015',
-  mandaue:
+  'mandaue city':
     '2nd Floor, Paradise Square, H. Abellana St, Mandaue City, Cebu, 6014',
   cebu: '8V6R+8VM, Don Gil, Cebu City, 6000',
 }
