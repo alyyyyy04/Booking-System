@@ -6,7 +6,6 @@ import logo from '/circle.png'
 const navLinks = [
   { label: 'Services', href: '/#services' },
   { label: 'Products', to: '/products' },
-  { label: 'Booking Management', to: '/booking-management' },
   { label: 'About Us', href: '/#about' },
   { label: 'Contact', href: '/team#contact' },
 ]
