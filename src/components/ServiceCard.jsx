@@ -8,6 +8,8 @@ export default function ServiceCard({
   description,
   price,
   duration,
+  ctaLabel = 'Book This Service',
+  onCtaClick,
 }) {
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition hover:shadow-xl">
@@ -31,12 +33,13 @@ export default function ServiceCard({
             {duration}
           </span>
         </div>
-        <a
-          href="#book"
+        <button
+          type="button"
+          onClick={onCtaClick}
           className="mt-4 w-full rounded-lg bg-accent py-3 text-center font-medium text-white transition hover:bg-accent-dark"
         >
-          Book This Service
-        </a>
+          {ctaLabel}
+        </button>
       </div>
     </article>
   )

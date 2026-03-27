@@ -1,23 +1,24 @@
 import { useState } from 'react'
 import { Sparkles, Scissors, Heart } from 'lucide-react'
 import { serviceCategories } from '../data/servicesData'
+import ServiceCard from './ServiceCard'
 
 const categoryMeta = {
-  'face-beauty': {
+  face: {
     image:
       'https://media.istockphoto.com/id/1399469980/photo/close-up-portrait-of-anorganic-facial-mask-application-at-spa-salon-facial-treatment-skin.jpg?s=612x612&w=0&k=20&c=ZvZi_bdGLicsykUtlrHgQe70ftZzd_xPKvq2vzfOyV0=',
     icon: Sparkles,
     description:
       'Facial treatments, lashes, semi-permanent makeup, and advanced skin care.',
   },
-  'hair-styling': {
+  hair: {
     image:
       'https://media.istockphoto.com/id/1138252695/photo/woman-at-hair-salon.jpg?s=612x612&w=0&k=20&c=VfottXG-WF8Lr9o6zdgbU1bbZp0OcHdzdmz8j6LcaIU=',
     icon: Scissors,
     description:
       'Cuts, color, treatments, rebonding, Brazilian, and event-ready hair styling.',
   },
-  'body-nail-wellness': {
+  body: {
     image:
       'https://images.squarespace-cdn.com/content/v1/553640b0e4b06779e02ce9a6/d40a9cfb-09b9-4437-863e-de47c6274efa/unnamed-2.webp',
     icon: Heart,
@@ -27,7 +28,7 @@ const categoryMeta = {
 }
 
 export default function ServicesSection() {
-  const [activeCategoryId, setActiveCategoryId] = useState('hair-styling')
+  const [activeCategoryId, setActiveCategoryId] = useState('hair')
   const [openSubcategory, setOpenSubcategory] = useState(null)
   const [showModal, setShowModal] = useState(false)
 
@@ -63,51 +64,26 @@ export default function ServicesSection() {
             const Icon = meta.icon
             const isActive = activeCategoryId === category.id
             return (
-              <button
+              <div
                 key={category.id}
-                type="button"
-                onClick={() => {
-                  setActiveCategoryId(category.id)
-                  setOpenSubcategory(null)
-                  setShowModal(true)
-                }}
-                className={`flex flex-col overflow-hidden rounded-2xl bg-white text-left shadow-md transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${
-                  isActive ? 'ring-2 ring-accent' : ''
-                }`}
+                className={isActive ? 'rounded-2xl ring-2 ring-accent' : ''}
               >
-                <div className="relative aspect-[4/3] w-full overflow-hidden">
-                  <img
-                    src={meta.image}
-                    alt={category.title}
-                    className="h-full w-full object-cover transition duration-500 hover:scale-105"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-                  <div className="pointer-events-none absolute bottom-4 left-4 flex items-center gap-2 text-white">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-accent/90">
-                      <Icon className="h-5 w-5" aria-hidden />
-                    </div>
-                    <p className="text-sm font-medium uppercase tracking-wide">
-                      Category
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="text-xl font-semibold text-gray-900">
-                    {category.title}
-                  </h3>
-                  <p className="mt-2 flex-1 text-sm text-gray-600">
-                    {meta.description}
-                  </p>
-                  <div className="mt-4 flex items-center justify-between">
-                    <span className="text-sm font-medium text-accent">
-                      View services in your area
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Tap to open list
-                    </span>
-                  </div>
-                </div>
-              </button>
+                <ServiceCard
+                  image={meta.image}
+                  imageAlt={category.title}
+                  icon={Icon}
+                  title={category.title}
+                  description={meta.description}
+                  price="See branch rates"
+                  duration="Multi-option"
+                  ctaLabel="View services in your area"
+                  onCtaClick={() => {
+                    setActiveCategoryId(category.id)
+                    setOpenSubcategory(null)
+                    setShowModal(true)
+                  }}
+                />
+              </div>
             )
           })}
         </div>
