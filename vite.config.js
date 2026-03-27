@@ -6,7 +6,7 @@ export default defineConfig({
   preview: {
     host: true,
     allowedHosts: [
-      "booking-system-production-039e.up.railway.app"
+      "booking-system-production-6550.up.railway.app"
     ]
   }
 })
