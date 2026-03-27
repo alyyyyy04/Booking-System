@@ -8,7 +8,6 @@ import BranchSelection from './pages/BranchSelection'
 import ServicesSelection from './pages/ServicesSelection'
 import StylistSelection from './pages/StylistSelection'
 import AppointmentDetails from './pages/AppointmentDetails'
-import BookingManagementPage from './pages/BookingManagementPage'
 
 export default function App() {
   return (
@@ -23,7 +22,6 @@ export default function App() {
           <Route path="/book/services" element={<ServicesSelection />} />
           <Route path="/book/stylist" element={<StylistSelection />} />
           <Route path="/book/details" element={<AppointmentDetails />} />
-          <Route path="/booking-management" element={<BookingManagementPage />} />
         </Routes>
         <Footer />
       </div>

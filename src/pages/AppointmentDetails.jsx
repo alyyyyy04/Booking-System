@@ -1,8 +1,12 @@
 import { useState } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { ArrowLeft, Calendar, CheckCircle, User } from 'lucide-react'
-import { push, ref, serverTimestamp } from 'firebase/database'
+import { push, ref } from 'firebase/database'
 import { database, ensureAnonymousAuth } from '../firebase'
+import {
+  SERVICE_PRODUCT_CATALOG,
+  getCommissionRate,
+} from '../data/servicesData'
 
 const parsePriceToNumber = (rawPrice) => {
   if (typeof rawPrice === 'number') return rawPrice
@@ -14,9 +18,41 @@ const parsePriceToNumber = (rawPrice) => {
   return Number(firstNumericChunk[0].replace(/,/g, '')) || 0
 }
 
+const BOOKING_PATH_CANDIDATES = ['appointments', 'bookingRequests', 'bookings']
+
+const normalizeLabel = (value) => value.toLowerCase().replace(/\s+/g, ' ').trim()
+
+const findCatalogItemByServiceName = (serviceName) => {
+  const exactMatch = SERVICE_PRODUCT_CATALOG.find((i) => i.label === serviceName)
+  if (exactMatch) return exactMatch
+
+  const normalizedName = normalizeLabel(serviceName)
+  return (
+    SERVICE_PRODUCT_CATALOG.find((i) => normalizeLabel(i.label) === normalizedName) ||
+    null
+  )
+}
+
+const saveBookingRequest = async (payload) => {
+  let lastError = null
+
+  for (const path of BOOKING_PATH_CANDIDATES) {
+    try {
+      await push(ref(database, path), payload)
+      return
+    } catch (error) {
+      lastError = error
+      // Continue trying other known paths only for permission-related failures.
+      if (error?.code !== 'PERMISSION_DENIED') break
+    }
+  }
+
+  throw lastError
+}
+
 export default function AppointmentDetails() {
   const location = useLocation()
-  const { branchName, services, stylists } = location.state || {}
+  const { branchId, branchName, services, stylists } = location.state || {}
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
@@ -51,24 +87,86 @@ export default function AppointmentDetails() {
     setSubmitting(true)
     try {
       await ensureAnonymousAuth()
-      const normalizedServices = services.map((service) => ({
-        name: service.name,
-        price: parsePriceToNumber(service.price),
-        commissionRate: 0,
-        commissionAmount: 0,
-      }))
+      const selectedStylists = Array.isArray(stylists) ? stylists : []
+      const stylistsForCommission =
+        selectedStylists.length > 0 ? selectedStylists : [{ name: 'Any available stylist' }]
 
-      await push(ref(database, 'appointments'), {
+      const normalizedServices = services.map((service) => {
+        const numericPrice = parsePriceToNumber(service.price)
+        const item = findCatalogItemByServiceName(service.name)
+        const fallbackItem = item || {
+          id: `fallback-${service.name}`,
+          label: service.name,
+          kind: 'service',
+          basePrice: numericPrice,
+          tags: [],
+        }
+
+        const assignedStylists = stylistsForCommission.map((stylist) => {
+          const employeeName = stylist.name
+          const rate = getCommissionRate({
+            branchId,
+            employeeName,
+            item: fallbackItem,
+            price: numericPrice,
+          })
+          const share = 1 / stylistsForCommission.length
+          const commission = numericPrice * rate * share
+
+          console.log('COMMISSION DEBUG:', {
+            service: service.name,
+            employeeName,
+            item: fallbackItem,
+            tags: fallbackItem?.tags,
+            rate,
+            price: numericPrice,
+            commission,
+          })
+
+          return {
+            name: employeeName,
+            share,
+            commissionRate: rate,
+            commissionAmount: commission,
+          }
+        })
+
+        const totalServiceCommission = assignedStylists.reduce(
+          (sum, stylist) => sum + stylist.commissionAmount,
+          0,
+        )
+
+        return {
+          name: service.name,
+          type: fallbackItem.kind || 'service',
+          price: numericPrice,
+          assignedStylists,
+          totalServiceCommission,
+        }
+      })
+      const totalAmount = normalizedServices.reduce((sum, item) => sum + item.price, 0)
+      const totalCommission = normalizedServices.reduce(
+        (sum, item) => sum + item.totalServiceCommission,
+        0,
+      )
+
+      await saveBookingRequest({
         customerName: form.name,
         phone: form.phone,
         preferredDate: form.date,
         preferredTime: form.time,
         notes: form.notes || '',
+        branchId: branchId || '',
         branchName,
         services: normalizedServices,
-        stylists: stylists || [],
+        stylists:
+          selectedStylists.length > 0
+            ? selectedStylists.map((stylist) => ({ name: stylist.name }))
+            : [{ name: 'Any available stylist' }],
+        totalAmount,
+        totalCommission,
         status: 'pending',
-        createdAt: serverTimestamp(),
+        createdAt: Date.now(),
       })
       setSubmitted(true)
     } catch (error) {
@@ -89,7 +187,7 @@ export default function AppointmentDetails() {
     }
   }
 
-  if (!branchName || !services || services.length === 0) {
+  if (!branchId || !branchName || !services || services.length === 0) {
     return (
       <div className="mx-auto max-w-md px-4 py-12 text-center">
         <p className="text-gray-600">No booking selected.</p>

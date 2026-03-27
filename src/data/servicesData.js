@@ -1,4 +1,6 @@
-// Service structure: { name, price } or { name, priceAlt } for options like "1 Session / 2 Sessions"
+// ==========================
+// SERVICE DATA
+// ==========================
 const faceAndBeauty = [
   {
     subcategory: 'Facial Treatments',
@@ -237,32 +239,24 @@ const bodyNailWellness = [
   },
 ]
 
+
+// ==========================
+// CATEGORIES
+// ==========================
 export const serviceCategories = [
-  {
-    id: 'face-beauty',
-    title: 'Face & Beauty Care',
-    icon: 'sparkles',
-    data: faceAndBeauty,
-  },
-  {
-    id: 'hair-styling',
-    title: 'Hair Care & Styling',
-    icon: 'scissors',
-    data: hairCareAndStyling,
-  },
-  {
-    id: 'body-nail-wellness',
-    title: 'Body, Nail & Wellness Care',
-    icon: 'heart',
-    data: bodyNailWellness,
-  },
+  { id: 'face', title: 'Face & Beauty', data: faceAndBeauty },
+  { id: 'hair', title: 'Hair Care', data: hairCareAndStyling },
+  { id: 'body', title: 'Body Wellness', data: bodyNailWellness },
 ]
 
+// ==========================
+// BRANCHES & STAFF
+// ==========================
 export const branches = [
-  { id: 'pusok', name: 'Pusok Branch', icon: 'map-pin' },
-  { id: 'pajac', name: 'Pajac Branch', icon: 'map-pin' },
-  { id: 'mandaue', name: 'Mandaue City Branch', icon: 'map-pin' },
-  { id: 'cebu', name: 'Cebu City Branch', icon: 'map-pin' },
+  { id: 'mandaue', name: 'Mandaue Branch' },
+  { id: 'pajac', name: 'Pajac Branch' },
+  { id: 'pusok', name: 'Pusok Branch' },
+  { id: 'cebu', name: 'Cebu Branch' },
 ]
 
 export const stylistsByBranch = {
@@ -293,4 +287,93 @@ export const stylistsByBranch = {
     { name: 'Cabreles, Jennifer', role: 'Nail Technician' },
     { name: 'Dela Torre, Jeanny', role: 'Facialist' },
   ],
+}
+
+// ==========================
+// HELPERS
+// ==========================
+const parsePrice = (p) => {
+  if (!p) return 0
+  let c = p.replace(/[₱,]/g, '')
+  if (c.includes('–')) return Number(c.split('–')[0])
+  if (c.includes('/')) return Number(c.split('/')[0])
+  return Number(c) || 0
+}
+
+const TAG_RULES = {
+  massage: ['massage'],
+  inject: ['gluta', 'inject', 'drip', 'shot'],
+  major: ['rebond', 'laser', 'treatment'],
+}
+
+const getTags = (name) => {
+  const lower = name.toLowerCase()
+  return Object.entries(TAG_RULES)
+    .filter(([_, words]) => words.some((w) => lower.includes(w)))
+    .map(([tag]) => tag)
+}
+
+// ==========================
+// GENERATED CATALOG
+// ==========================
+export const SERVICE_PRODUCT_CATALOG = serviceCategories.flatMap((cat) =>
+  cat.data.flatMap((sub, i) =>
+    sub.services.map((s, j) => ({
+      id: `${cat.id}-${i}-${j}`,
+      label: s.name,
+      kind: 'service',
+      basePrice: parsePrice(s.price),
+      tags: getTags(s.name),
+    }))
+  )
+)
+
+// ==========================
+// COMMISSION SYSTEM
+// ==========================
+const normalizeName = (n) => n.toLowerCase().replace(/[^a-z]/g, '')
+
+export const getCommissionRate = ({ branchId, employeeName, item, price }) => {
+  const key = normalizeName(employeeName || '')
+  const tags = Array.isArray(item?.tags) ? item.tags : []
+  const kind = item?.kind || 'service'
+
+  if (kind === 'product' || tags.includes('product')) return 0.1
+
+  if (branchId === 'mandaue' && key === normalizeName('Yekla, Sanny Grace')) {
+    if (tags.includes('massage')) return 0.4
+    if (tags.includes('inject')) return 0.1
+    return 0.05
+  }
+
+  if (branchId === 'pusok' && key === normalizeName('Pedor, Rowena')) {
+    if (price > 499 && tags.includes('major')) return 0.1
+    return 0.05
+  }
+
+  if (branchId === 'pajac') {
+    // Facialist-focused incentives at Pajac.
+    if (key === normalizeName('Belarmino, Mattlaine Clyrr')) {
+      if (tags.includes('massage')) return 0.4
+      if (tags.includes('inject')) return 0.1
+      return 0.05
+    }
+
+    // Barber-focused incentives at Pajac.
+    if (
+      key === normalizeName('Gloria, Francisco') ||
+      key === normalizeName('Demape, Keyn Joshua')
+    ) {
+      if (price > 499 && tags.includes('major')) return 0.1
+      return 0.05
+    }
+
+    return 0.05
+  }
+
+  if (branchId === 'cebu' && key.includes('jennifer')) {
+    return 0.05
+  }
+
+  return 0.05
 }
