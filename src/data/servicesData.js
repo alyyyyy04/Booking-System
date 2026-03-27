@@ -253,14 +253,14 @@ export const serviceCategories = [
 // BRANCHES & STAFF
 // ==========================
 export const branches = [
-  { id: 'mandaue city', name: 'Mandaue City Branch' },
+  { id: 'mandauecity', name: 'Mandaue City Branch' },
   { id: 'pajac', name: 'Pajac Branch' },
   { id: 'pusok', name: 'Pusok Branch' },
-  { id: 'cebu city', name: 'Cebu City Branch' },
+  { id: 'cebucity', name: 'Cebu City Branch' },
 ]
 
 export const stylistsByBranch = {
-  mandaue: [
+  mandauecity: [
     { name: 'Dela Torre, Imae Rose', role: 'Nail Technician', specialty: 'Nailtech' },
     { name: 'Yekla, Sanny Grace', role: 'Facialist / Massage Therapist' },
     { name: 'Davis, Rosegina', role: 'Hair and Nail Technician' },
@@ -280,7 +280,7 @@ export const stylistsByBranch = {
     { name: 'Pedor, Rowena', role: 'Nail Technician' },
     { name: 'Dimco, Janeth', role: 'Hairdresser' },
   ],
-  cebu: [
+  cebucity: [
     { name: 'Macatanong, Jessica', role: 'Nail Technician' },
     { name: 'Tallo, Lucille', role: 'Hairdresser' },
     { name: 'Cañizares, Rubelyn', role: 'Facialist' },
@@ -340,7 +340,7 @@ export const getCommissionRate = ({ branchId, employeeName, item, price }) => {
 
   if (kind === 'product' || tags.includes('product')) return 0.1
 
-  if (branchId === 'mandaue' && key === normalizeName('Yekla, Sanny Grace')) {
+  if (branchId === 'mandauecity' && key === normalizeName('Yekla, Sanny Grace')) {
     if (tags.includes('massage')) return 0.4
     if (tags.includes('inject')) return 0.1
     return 0.05
@@ -371,7 +371,7 @@ export const getCommissionRate = ({ branchId, employeeName, item, price }) => {
     return 0.05
   }
 
-  if (branchId === 'cebu' && key.includes('jennifer')) {
+  if (branchId === 'cebucity' && key.includes('jennifer')) {
     return 0.05
   }
 
