@@ -76,7 +76,7 @@ export default function ServicesSection() {
                   description={meta.description}
                   price="See branch rates"
                   duration="Multi-option"
-                  ctaLabel="View services in your area"
+                  ctaLabel="View services we offer"
                   onCtaClick={() => {
                     setActiveCategoryId(category.id)
                     setOpenSubcategory(null)
