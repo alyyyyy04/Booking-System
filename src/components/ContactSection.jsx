@@ -28,7 +28,7 @@ const branchContacts = [
       'Pusok Branch.jpg',
   },
   {
-    id: 'cebu',
+    id: 'cebu ',
     title: 'Cebu City Branch',
     image:
       'Cebu Branch.jpg',
