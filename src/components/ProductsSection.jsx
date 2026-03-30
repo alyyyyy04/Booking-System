@@ -1,43 +1,155 @@
 const products = [
   {
-    name: 'Glam Nourish Shampoo',
-    description: 'Sulfate-free shampoo for daily use that leaves hair soft and shiny.',
-    price: 499,
+    name: 'Acne Set',
+    description: 'Facial Care Product',
+    price: 799,
     image:
-      'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=600&q=80',
+      'https://unsplash.com/photos/product-lot-deuGLZjp28M',
   },
   {
-    name: 'Silky Repair Conditioner',
-    description: 'Deep-conditioning formula that repairs dry, color-treated hair.',
-    price: 549,
+    name: 'Whitening Set',
+    description: 'Facial Care Product',
+    price: 699,
     image:
       'https://images.unsplash.com/photo-1612810432633-96f64dc8ccb6?w=600&q=80',
   },
   {
-    name: 'Keratin Smooth Hair Mask',
-    description: 'Intensive weekly treatment to smooth frizz and add shine.',
-    price: 699,
+    name: 'Underarm Whitening Deo Cream',
+    description: 'Body Care Product',
+    price: 300,
     image:
       'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80',
   },
   {
-    name: 'Glow Up Facial Set',
-    description: 'Gentle cleanser, toner, and cream for everyday glow.',
-    price: 1299,
+    name: 'Sunblock Cream SPF50',
+    description: 'Facial Care Product',
+    price: 250,
     image:
       'https://images.unsplash.com/photo-1600433214751-9aa7f7b4c07a?w=600&q=80',
   },
   {
-    name: 'Nail Care Essentials Kit',
-    description: 'Cuticle oil, buffer, and top coat for salon-finish nails at home.',
-    price: 599,
+    name: 'Sunblock Cream SPF110',
+    description: 'Facial Care Product',
+    price: 380,
     image:
       'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80',
   },
   {
-    name: 'Body Glow Scrub',
-    description: 'Whitening and brightening scrub with a relaxing spa scent.',
-    price: 650,
+    name: 'Vitamin C & E Serum',
+    description: 'Facial Care Product',
+    price: 350,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Collagen Serum',
+    description: 'Facial Care Product',
+    price: 380,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Hyaluronic Serum',
+    description: 'Facial Care Product',
+    price: 380,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Acne Cream',
+    description: 'Facial Care Product',
+    price: 250,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Warts Cream',
+    description: 'Face & Body Product',
+    price: 250,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Anti-Irritation Cream',
+    description: 'Face & Body Product',
+    price: 250,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Kojic Soap',
+    description: 'Face & Body Product',
+    price: 200,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Acne Soap',
+    description: 'Face & Body Product',
+    price: 250,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Whitening Soap',
+    description: 'Face & Body Product',
+    price: 250,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Toners',
+    description: 'Facial Care Product',
+    price: 250,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'EL Beauty Shine On Hair Serum',
+    description: 'Hair Care Product',
+    price: 300,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'EL Beauty Argan Oil Hair Mask',
+    description: 'Hair Care Product',
+    price: 850,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Deorebiss Shampoo & Conditioner',
+    description: 'Hair Care Product',
+    price: 1500,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Deorebiss Shampoo',
+    description: 'Hair Care Product',
+    price: 800,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Deorebiss Conditioner',
+    description: 'Hair Care Product',
+    price: 800,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Hair Curling Cream',
+    description: 'Hair Care Product',
+    price: 500,
+    image:
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
+  },
+  {
+    name: 'Color Gadget Shampoo',
+    description: 'Hair Care Product',
+    price: 1100,
     image:
       'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80',
   },
