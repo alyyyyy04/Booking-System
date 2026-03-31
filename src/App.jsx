@@ -4,6 +4,7 @@ import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import ProductsPage from './pages/ProductsPage'
 import TeamPage from './pages/TeamPage'
+import AboutPage from './pages/AboutPage'
 import BranchSelection from './pages/BranchSelection'
 import ServicesSelection from './pages/ServicesSelection'
 import StylistSelection from './pages/StylistSelection'
@@ -17,6 +18,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/team" element={<TeamPage />} />
           <Route path="/book" element={<BranchSelection />} />
           <Route path="/book/services" element={<ServicesSelection />} />
