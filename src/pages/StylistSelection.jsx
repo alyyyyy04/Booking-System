@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, Link } from 'react-router-dom'
 import { Users, ArrowLeft } from 'lucide-react'
 import { stylistsByBranch } from '../data/servicesData'
@@ -8,6 +8,104 @@ import {
   handleStylistPhotoError,
 } from '../utils/stylistPhotos'
 
+const normalizeText = (value) => String(value || '').toLowerCase()
+
+const getServiceSpecializations = (services) => {
+  const tokens = new Set()
+  const list = Array.isArray(services) ? services : []
+
+  for (const service of list) {
+    const name = normalizeText(service?.name)
+    const subcategory = normalizeText(service?.subcategory)
+    const categoryId = service?.categoryId
+
+    // Nail services
+    const isNail =
+      subcategory.includes('nail') ||
+      name.includes('nail') ||
+      name.includes('manicure') ||
+      name.includes('pedicure') ||
+      name.includes('extensions') ||
+      name.includes('polish') ||
+      name.includes('stones')
+
+    // Hair services
+    const isHair =
+      categoryId === 'hair' ||
+      subcategory.includes('hair') ||
+      name.includes('hair') ||
+      name.includes('cut') ||
+      name.includes('rebond') ||
+      name.includes('color') ||
+      name.includes('blowdry') ||
+      name.includes('styling') ||
+      name.includes('balayage')
+
+    // Massage services
+    const isMassage =
+      name.includes('massage') ||
+      subcategory.includes('massage') ||
+      name.includes('ventosa') ||
+      name.includes('cupping') ||
+      name.includes('slim') ||
+      name.includes('trio slim') ||
+      name.includes('rf') ||
+      name.includes('cavitation')
+
+    // Face services
+    const isFacial =
+      categoryId === 'face' ||
+      subcategory.includes('facial') ||
+      name.includes('facial') ||
+      name.includes('eyelash') ||
+      name.includes('eyebrow') ||
+      name.includes('brow') ||
+      name.includes('waxing') ||
+      name.includes('threading') ||
+      // Shots / drips are typically handled by facial specialists.
+      name.includes('gluta') ||
+      name.includes('inject') ||
+      name.includes('drip') ||
+      name.includes('shot')
+
+    if (isNail) tokens.add('nail')
+    if (isHair) tokens.add('hair')
+    if (isMassage) tokens.add('massage')
+    if (isFacial) tokens.add('facial')
+  }
+
+  return tokens
+}
+
+const getStylistSpecializations = (role) => {
+  const r = normalizeText(role)
+  const tokens = new Set()
+
+  if (r.includes('nail')) tokens.add('nail')
+  if (r.includes('hair') || r.includes('barber') || r.includes('hairdresser')) {
+    tokens.add('hair')
+  }
+  if (r.includes('massage')) tokens.add('massage')
+  if (r.includes('facialist')) tokens.add('facial')
+
+  return tokens
+}
+
+const getTokenLabel = (token) => {
+  switch (token) {
+    case 'massage':
+      return 'Massage Therapist'
+    case 'hair':
+      return 'Hair Stylist'
+    case 'nail':
+      return 'Nail Technician'
+    case 'facial':
+      return 'Facialist'
+    default:
+      return token
+  }
+}
+
 export default function StylistSelection() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -15,6 +113,30 @@ export default function StylistSelection() {
   const [selectedStylists, setSelectedStylists] = useState([])
 
   const stylists = branchId ? stylistsByBranch[branchId] || [] : []
+
+  const requiredSpecializations = useMemo(
+    () => getServiceSpecializations(services),
+    [services],
+  )
+
+  const filteredStylists = useMemo(() => {
+    if (!stylists.length) return []
+    if (requiredSpecializations.size === 0) return stylists
+
+    return stylists.filter((stylist) => {
+      const stylistTokens = getStylistSpecializations(stylist.role)
+      return [...requiredSpecializations].some((t) => stylistTokens.has(t))
+    })
+  }, [stylists, requiredSpecializations])
+
+  const hasNoAvailableStylist = filteredStylists.length === 0
+
+  // If the available stylists change (e.g., route state changes), keep selection valid.
+  useEffect(() => {
+    setSelectedStylists((prev) =>
+      prev.filter((s) => filteredStylists.some((fs) => fs.name === s.name)),
+    )
+  }, [filteredStylists])
 
   const toggleStylist = (stylist) => {
     setSelectedStylists((prev) => {
@@ -27,6 +149,18 @@ export default function StylistSelection() {
   }
 
   const handleContinue = () => {
+    if (hasNoAvailableStylist) {
+      navigate('/book/details', {
+        state: {
+          branchId,
+          branchName,
+          services,
+          stylists: [],
+        },
+      })
+      return
+    }
+
     if (!selectedStylists.length) return
     navigate('/book/details', {
       state: {
@@ -50,7 +184,9 @@ export default function StylistSelection() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="booking-flow-bg relative min-h-screen overflow-hidden">
+      <div className="pointer-events-none absolute -left-16 top-24 h-56 w-56 rounded-full bg-pink-200/60 blur-3xl" />
+      <div className="pointer-events-none absolute -right-16 bottom-16 h-64 w-64 rounded-full bg-violet-200/55 blur-3xl" />
       <div className="mx-auto max-w-4xl px-4 py-8 sm:py-12">
         <Link
           to="/book/services"
@@ -71,7 +207,7 @@ export default function StylistSelection() {
           </p>
         </div>
 
-        <div className="mb-6 rounded-2xl bg-white p-4 shadow-sm">
+        <div className="mb-6 rounded-2xl border border-white/70 bg-white/90 p-4 shadow-sm backdrop-blur-sm">
           <h2 className="text-sm font-semibold text-gray-800">
             Selected services
           </h2>
@@ -89,9 +225,13 @@ export default function StylistSelection() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {stylists.map((stylist) => {
+          {filteredStylists.map((stylist, idx) => {
             const isSelected = selectedStylists.some(
               (s) => s.name === stylist.name,
+            )
+            const stylistTokens = getStylistSpecializations(stylist.role)
+            const activeTokens = [...stylistTokens].filter((t) =>
+              requiredSpecializations.has(t),
             )
             const photoCandidates = getStylistPhotoCandidates(stylist.name)
             return (
@@ -99,9 +239,10 @@ export default function StylistSelection() {
                 key={stylist.name}
                 type="button"
                 onClick={() => toggleStylist(stylist)}
-                className={`flex flex-col items-start rounded-2xl border-2 bg-white p-5 text-left shadow-md transition hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${
+                className={`booking-fade-up booking-interactive-card flex flex-col items-start rounded-2xl border-2 bg-white/92 p-5 text-left shadow-md backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${
                   isSelected ? 'border-accent' : 'border-gray-200'
                 }`}
+                style={{ animationDelay: `${idx * 80}ms` }}
               >
                 <div className="relative h-12 w-12 overflow-hidden rounded-full bg-accent/10">
                   <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-accent">
@@ -122,6 +263,19 @@ export default function StylistSelection() {
                 <p className="mt-1 text-lg font-semibold text-gray-900">
                   {stylist.name}
                 </p>
+                {activeTokens.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {activeTokens.map((token) => (
+                      <span
+                        // Token-based key is stable for the same role string.
+                        key={`${stylist.name}-${token}`}
+                        className="rounded-full bg-gray-100 px-2 py-1 text-[11px] font-medium text-gray-700"
+                      >
+                        {getTokenLabel(token)}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 {stylist.specialty && (
                   <p className="mt-1 text-sm text-gray-500">
                     {stylist.specialty}
@@ -145,6 +299,13 @@ export default function StylistSelection() {
           </p>
         )}
 
+        {stylists.length > 0 && filteredStylists.length === 0 && (
+          <p className="mt-4 text-sm text-gray-600">
+            This service currently has no assigned stylist.
+Our receptionist will personally select the best available stylist for you upon arrival. You’ll be notified once your booking is confirmed.
+          </p>
+        )}
+
             <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
           <button
             type="button"
@@ -160,10 +321,12 @@ export default function StylistSelection() {
           <button
             type="button"
             onClick={handleContinue}
-            disabled={!selectedStylists.length}
+            disabled={!hasNoAvailableStylist && !selectedStylists.length}
             className="rounded-lg bg-accent px-6 py-3 text-sm font-medium text-white shadow-md transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-600"
           >
-            Continue with selected stylists
+            {hasNoAvailableStylist
+              ? 'Confirm your appointment'
+              : 'Continue with selected stylists'}
           </button>
         </div>
       </div>

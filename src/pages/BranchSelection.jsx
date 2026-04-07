@@ -7,7 +7,7 @@ const branchAddresses = {
     'Menguito Building, ML Quezon National Highway, Pusok, Lapu-Lapu City, Cebu, 6015',
   pajac:
     'Helenville Apartment, Bankal Road, Pajac, Lapu-Lapu City, Cebu, 6015',
-  'mandaue city':
+  'mandaue':
     '2nd Floor, Paradise Square, H. Abellana St, Mandaue City, Cebu, 6014',
   cebu: '8V6R+8VM, Don Gil, Cebu City, 6000',
 }
@@ -20,7 +20,9 @@ export default function BranchSelection() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="booking-flow-bg relative min-h-screen overflow-hidden">
+      <div className="pointer-events-none absolute -left-16 top-24 h-56 w-56 rounded-full bg-pink-200/60 blur-3xl" />
+      <div className="pointer-events-none absolute -right-14 bottom-20 h-64 w-64 rounded-full bg-purple-200/50 blur-3xl" />
       <div className="mx-auto max-w-4xl px-4 py-12 sm:py-16 lg:py-20">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
@@ -31,12 +33,13 @@ export default function BranchSelection() {
           </p>
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-          {branches.map((branch) => (
+          {branches.map((branch, idx) => (
             <button
               key={branch.id}
               type="button"
               onClick={() => handleSelect(branch.id)}
-              className="group flex min-h-[160px] flex-col items-center justify-center rounded-2xl border-2 border-gray-200 bg-white p-8 shadow-md transition hover:border-accent hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+              className="booking-fade-up booking-interactive-card group flex min-h-[160px] flex-col items-center justify-center rounded-2xl border border-white/60 bg-white/85 p-8 shadow-md backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+              style={{ animationDelay: `${idx * 90}ms` }}
             >
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent transition group-hover:bg-accent/20">
                 <MapPin className="h-8 w-8" strokeWidth={1.5} aria-hidden />

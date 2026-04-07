@@ -15,17 +15,30 @@ export default function ServicesSelection() {
   const [selectedServices, setSelectedServices] = useState(initialServices)
   const [searchQuery, setSearchQuery] = useState('')
 
-  const toggleServiceSelection = (service) => {
+  const toggleServiceSelection = (service, { categoryId, subcategory }) => {
     setSelectedServices((prev) => {
       const exists = prev.find(
-        (item) => item.name === service.name && item.price === service.price,
+        (item) =>
+          item.name === service.name &&
+          item.price === service.price &&
+          (item.categoryId === categoryId && item.subcategory === subcategory) ||
+          (item.categoryId == null && item.subcategory == null),
       )
       if (exists) {
         return prev.filter(
-          (item) => !(item.name === service.name && item.price === service.price),
+          (item) =>
+            !(
+              item.name === service.name &&
+              item.price === service.price &&
+              ((item.categoryId === categoryId && item.subcategory === subcategory) ||
+                (item.categoryId == null && item.subcategory == null))
+            ),
         )
       }
-      return [...prev, { name: service.name, price: service.price }]
+      return [
+        ...prev,
+        { name: service.name, price: service.price, categoryId, subcategory },
+      ]
     })
   }
 
@@ -41,7 +54,9 @@ export default function ServicesSelection() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="booking-flow-bg relative min-h-screen overflow-hidden">
+      <div className="pointer-events-none absolute -left-16 top-28 h-52 w-52 rounded-full bg-rose-200/60 blur-3xl" />
+      <div className="pointer-events-none absolute -right-16 top-1/2 h-56 w-56 rounded-full bg-purple-200/55 blur-3xl" />
       <div className="mx-auto max-w-4xl px-4 py-8 sm:py-12">
         <Link
           to="/book"
@@ -85,7 +100,8 @@ export default function ServicesSelection() {
             return (
               <div
                 key={category.id}
-                className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md"
+                className="booking-fade-up booking-interactive-card overflow-hidden rounded-2xl border border-white/70 bg-white/90 shadow-md backdrop-blur-sm"
+                style={{ animationDelay: `${serviceCategories.indexOf(category) * 90}ms` }}
               >
                 <button
                   type="button"
@@ -125,7 +141,11 @@ export default function ServicesSelection() {
                               const isSelected = selectedServices.some(
                                 (item) =>
                                   item.name === service.name &&
-                                  item.price === service.price,
+                                  item.price === service.price &&
+                                  ((item.categoryId === category.id &&
+                                    item.subcategory === group.subcategory) ||
+                                    (item.categoryId == null &&
+                                      item.subcategory == null)),
                               )
                               return (
                                 <li
@@ -142,7 +162,12 @@ export default function ServicesSelection() {
                                   </div>
                                   <button
                                     type="button"
-                                    onClick={() => toggleServiceSelection(service)}
+                                    onClick={() =>
+                                      toggleServiceSelection(service, {
+                                        categoryId: category.id,
+                                        subcategory: group.subcategory,
+                                      })
+                                    }
                                     className={`shrink-0 rounded-lg px-4 py-2 text-sm font-medium text-white transition ${
                                       isSelected
                                         ? 'bg-gray-500 hover:bg-gray-600'

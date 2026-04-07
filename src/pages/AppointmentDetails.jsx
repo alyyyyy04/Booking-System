@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useLocation, Link } from 'react-router-dom'
-import { ArrowLeft, Calendar, CheckCircle, User } from 'lucide-react'
+import { ArrowLeft, Calendar, CheckCircle, MapPin, Sparkles, User } from 'lucide-react'
 import { push, ref } from 'firebase/database'
 import { database, ensureAnonymousAuth } from '../firebase'
 import {
@@ -104,6 +104,7 @@ export default function AppointmentDetails() {
 
         const assignedStylists = stylistsForCommission.map((stylist) => {
           const employeeName = stylist.name
+          const employeePosition = stylist.role || 'Any available stylist'
           const rate = getCommissionRate({
             branchId,
             employeeName,
@@ -125,6 +126,7 @@ export default function AppointmentDetails() {
 
           return {
             name: employeeName,
+            position: employeePosition,
             share,
             commissionRate: rate,
             commissionAmount: commission,
@@ -161,8 +163,17 @@ export default function AppointmentDetails() {
         services: normalizedServices,
         stylists:
           selectedStylists.length > 0
-            ? selectedStylists.map((stylist) => ({ name: stylist.name }))
-            : [{ name: 'Any available stylist' }],
+            ? selectedStylists.map((stylist) => ({
+                name: stylist.name,
+                position: stylist.role || 'Any available stylist',
+                specialty: stylist.specialty || '',
+              }))
+            : [
+                {
+                  name: 'Any available stylist',
+                  position: 'Any available stylist',
+                },
+              ],
         totalAmount,
         totalCommission,
         status: 'pending',
@@ -198,69 +209,76 @@ export default function AppointmentDetails() {
     )
   }
 
- if (submitted) {
-  return (
-    <div className="flex items-center justify-center min-h-[80vh] px-4">
-      <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-6 text-center">
+  if (submitted) {
+    return (
+      <div className="booking-flow-bg relative flex min-h-[82vh] items-center justify-center overflow-hidden px-4 py-8">
+        <div className="pointer-events-none absolute -left-16 top-12 h-56 w-56 rounded-full bg-pink-300/35 blur-3xl" />
+        <div className="pointer-events-none absolute -right-16 bottom-8 h-64 w-64 rounded-full bg-fuchsia-300/30 blur-3xl" />
 
-        {/* Success Icon */}
-        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
-          <CheckCircle className="h-12 w-12 text-green-600" />
-        </div>
+        <div className="booking-fade-up w-full max-w-xl rounded-3xl border border-white/70 bg-white/85 p-6 shadow-2xl backdrop-blur-md sm:p-8">
+          <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-emerald-100 to-green-50 shadow-inner">
+            <CheckCircle className="h-12 w-12 text-green-600" />
+          </div>
 
-        {/* Title */}
-        <h2 className="mt-4 text-3xl font-bold text-gray-900">
-          Request Received
-        </h2>
-
-        {/* Subtitle */}
-        <p className="mt-2 text-sm text-gray-500">
-          Your appointment request has been submitted successfully.
-        </p>
-
-        {/* Branch */}
-        <p className="mt-3 font-semibold text-gray-800">
-          📍 {branchName}
-        </p>
-
-        {/* Services List */}
-        <div className="mt-4 text-left">
-          <p className="text-sm text-gray-600 mb-2">
-            Selected Services:
+          <h2 className="mt-5 text-center text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            Request Received! 💖
+          </h2>
+          <p className="mx-auto mt-3 max-w-lg text-center text-sm leading-7 text-gray-600 sm:text-base">
+            Your appointment request has been successfully submitted. Thank you for choosing El Glam
+            ✨
           </p>
 
-          <div className="divide-y">
-            {services.map((service) => (
-              <div
-                key={`${service.name}-${service.price}`}
-                className="flex justify-between py-2 text-sm"
-              >
-                <span className="text-gray-800 font-medium">
-                  {service.name}
-                </span>
-                <span className="font-semibold text-accent">
-                  {service.price}
-                </span>
-              </div>
-            ))}
+          <div className="mt-6 rounded-2xl border border-pink-100 bg-white/90 p-4">
+            <p className="flex items-center gap-2 text-sm font-medium text-gray-700">
+              <MapPin className="h-4 w-4 text-pink-500" />
+              Branch: <span className="font-semibold text-gray-900">{branchName}</span>
+            </p>
           </div>
+
+          <div className="mt-5 rounded-2xl border border-rose-100 bg-rose-50/60 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-rose-500">
+              Selected Service
+            </p>
+            <ul className="mt-3 space-y-2">
+              {services.map((service) => (
+                <li
+                  key={`${service.name}-${service.price}`}
+                  className="flex items-center justify-between gap-3 rounded-lg bg-white px-3 py-2"
+                >
+                  <span className="inline-flex items-center gap-2 font-medium text-gray-800">
+                    <Sparkles className="h-4 w-4 text-pink-500" />
+                    {service.name}
+                  </span>
+                  <span className="font-semibold text-rose-600">{service.price}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-5 rounded-2xl bg-pink-50/80 p-4 text-sm leading-7 text-gray-600">
+            Please wait for a confirmation message from our receptionist. You will receive a text
+            once your booking has been reviewed and confirmed.
+          </div>
+
+          <p className="mt-4 text-center text-sm font-medium text-gray-700 sm:text-base">
+            We appreciate your patience and can&apos;t wait to take care of you! 💕
+          </p>
+
+          <Link
+            to="/"
+            className="mt-7 block w-full rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 py-3 text-center font-semibold text-white shadow-md transition hover:from-pink-600 hover:to-rose-600"
+          >
+            Back to Home
+          </Link>
         </div>
-
-        {/* Single Button */}
-        <Link
-          to="/"
-          className="mt-6 block w-full rounded-lg bg-accent py-3 font-medium text-white hover:bg-accent-dark"
-        >
-          Back to Home
-        </Link>
-
       </div>
-    </div>
-  )
-}
+    )
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="booking-flow-bg relative min-h-screen overflow-hidden">
+      <div className="pointer-events-none absolute -left-16 top-20 h-56 w-56 rounded-full bg-pink-200/60 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-10 h-64 w-64 rounded-full bg-purple-200/55 blur-3xl" />
       <div className="mx-auto max-w-lg px-4 py-8 sm:py-12">
         <Link
           to="/book/services"
@@ -270,7 +288,7 @@ export default function AppointmentDetails() {
           <ArrowLeft className="h-5 w-5" />
           Change services or stylist
         </Link>
-        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-md">
+        <div className="booking-fade-up rounded-2xl border border-white/70 bg-white/92 p-6 shadow-md backdrop-blur-sm">
           <h1 className="text-2xl font-bold text-gray-900">
             Appointment details
           </h1>

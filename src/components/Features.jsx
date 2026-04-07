@@ -21,13 +21,13 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-24">
+    <section className="bg-transparent py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {features.map(({ icon: Icon, title, description }) => (
             <div
               key={title}
-              className="flex flex-col items-center text-center transition hover:scale-[1.02]"
+              className="flex flex-col items-center rounded-2xl border border-white/20 bg-white/75 p-6 text-center shadow-md backdrop-blur-sm transition hover:scale-[1.02]"
             >
               <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-accent/30 bg-accent/10 text-accent">
                 <Icon className="h-8 w-8" strokeWidth={1.5} aria-hidden />

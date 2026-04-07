@@ -1,62 +1,264 @@
-export default function AboutPage() {
+import { useEffect } from 'react'
+import { Award, Calendar, Clock3, Heart, Sparkles, Star } from 'lucide-react'
+import aboutUsHero from '../assets/aboutus-hero.png'
+import aboutWhatIsPhoto from '../assets/about-what-is.png'
+import founderPhoto from '../assets/founder-photo.png'
+
+const promiseCards = [
+  {
+    icon: Sparkles,
+    title: 'Premium Beauty Services',
+    description: 'From signature facials to luxury styling, every service is personalized with care.',
+    gradient: 'from-pink-500 to-rose-400',
+  },
+  {
+    icon: Award,
+    title: 'Skilled Professionals',
+    description: 'Our experts are trained in advanced techniques and industry best practices.',
+    gradient: 'from-purple-500 to-pink-500',
+  },
+  {
+    icon: Heart,
+    title: 'Customer Satisfaction',
+    description: 'We prioritize comfort, trust, and outcomes that make every guest feel confident.',
+    gradient: 'from-rose-400 to-purple-500',
+  },
+  {
+    icon: Calendar,
+    title: 'Modern Booking Experience',
+    description: 'Simple scheduling, thoughtful follow-up, and seamless service from start to finish.',
+    gradient: 'from-pink-500 to-purple-500',
+  },
+]
+
+function GradientBadge({ children }) {
   return (
-    <main className="bg-white">
-      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="max-w-3xl space-y-4">
-          <p className="text-sm font-semibold uppercase tracking-wide text-accent">About Us</p>
-          <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-            EL Glamorous Face and Body Clinic, Salon and Spa
-          </h1>
-          <p className="text-base leading-7 text-gray-600">
-            El Glam is built to be more than a beauty destination. We are a welcoming space where
-            clients can feel cared for, confident, and empowered through expert service and a
-            personalized experience.
-          </p>
+    <span className="inline-flex items-center rounded-full bg-gradient-to-r from-pink-500 to-purple-500 px-5 py-2 text-sm font-semibold text-white shadow-md">
+      {children}
+    </span>
+  )
+}
+
+export default function AboutPage() {
+  useEffect(() => {
+    const targets = document.querySelectorAll('.reveal')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+          }
+        })
+      },
+      { threshold: 0.18 },
+    )
+
+    targets.forEach((target) => observer.observe(target))
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <main className="overflow-x-hidden bg-white text-gray-700">
+      <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet"></link>
+      <section className="relative isolate min-h-[60vh] overflow-hidden bg-gradient-to-br from-pink-200 via-rose-100 to-purple-300 md:min-h-[70vh]">
+        <div className="hero-orb absolute left-8 top-20 h-48 w-48 rounded-full bg-pink-300/60 blur-3xl" />
+        <div className="hero-orb-delay absolute right-12 top-28 h-64 w-64 rounded-full bg-purple-300/50 blur-3xl" />
+        <div className="hero-orb absolute bottom-14 left-1/3 h-44 w-44 rounded-full bg-rose-200/60 blur-3xl" />
+
+        <img
+          src="https://images.unsplash.com/photo-1526045478516-99145907023c?auto=format&fit=crop&w=900&q=80"
+          alt="Pink flowers"
+          className="pointer-events-none absolute bottom-0 right-0 hidden w-52 max-w-[28vw] opacity-60 md:block"
+        />
+
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 pb-12 pt-16 sm:px-6 md:grid-cols-2 md:items-center md:gap-10 md:pb-16 md:pt-20 lg:px-8">
+          <div className="reveal space-y-6">
+            <p className="inline-flex rounded-full border border-pink-300/50 bg-white/70 px-4 py-2 text-sm font-medium text-pink-700">
+              Premium Salon and Spa Experience
+            </p>
+           <h1
+  className="text-6xl sm:text-6xl md:text-8xl leading-tight"
+  style={{
+    fontFamily: "'Dancing Script', cursive",
+    fontWeight: 500,
+    color: '#af4f67',
+  }}
+>
+  Bring out the
+  <br />
+  beauty in you,
+  <br />
+</h1>
+            <p className="max-w-xl text-lg leading-8 text-gray-700 sm:text-xl">
+              Discover elevated beauty services designed to celebrate your confidence, style, and
+              individuality in a space crafted for luxury and care.
+            </p>
+          </div>
+
+          <div className="reveal relative hero-photo-shell">
+            <div className="absolute -left-6 -top-6 h-40 w-40 rounded-full bg-white/45 blur-2xl" />
+            <div className="hero-photo-glow pointer-events-none absolute -inset-4 z-0 rounded-[2rem]" />
+            <img
+              src={aboutUsHero}
+              alt="Model with glowing skin"
+              className="hero-photo-image relative z-10 w-full rounded-3xl object-cover shadow-2xl"
+            />
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-5xl gap-8 px-4 pb-8 sm:px-6 lg:grid-cols-2 lg:px-8">
-        <article className="rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-gray-900">Owner Story</h2>
-          <p className="mt-3 text-sm leading-7 text-gray-600">
-            Founded by a passionate beauty professional, El Glam reflects years of dedication to
-            helping people look and feel their best. The owner&apos;s goal has always been to create
-            a salon and clinic where every client receives high-quality care, clear guidance, and a
-            relaxing environment.
+      <section className="about-us-section relative mx-auto grid max-w-7xl gap-12 overflow-hidden rounded-[2.25rem] px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <div className="reveal relative about-photo-shell">
+          <div className="absolute -left-8 -top-8 h-48 w-48 rounded-full bg-pink-200/70 blur-3xl" />
+          <div className="absolute -right-4 -bottom-8 h-44 w-44 rounded-full bg-purple-200/70 blur-3xl" />
+          <img
+            src={aboutWhatIsPhoto}
+            alt="Elegant salon interior"
+            className="about-photo-image relative z-10 h-[480px] w-full rounded-3xl object-cover shadow-xl"
+          />
+          <div className="about-photo-overlay absolute inset-0 z-20 rounded-3xl bg-gradient-to-t from-pink-500/35 via-transparent to-transparent" />
+          <div className="about-est-badge absolute bottom-6 left-6 z-30 rounded-2xl bg-white/90 px-5 py-3 shadow-lg">
+            <p className="text-sm font-semibold text-gray-900">Est. Since 2017</p>
+          </div>
+        </div>
+
+        <div className="reveal space-y-6">
+          <GradientBadge>✨ About Us</GradientBadge>
+          <h2 className="text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl">
+            What is{' '}
+            <span className="about-gradient-text bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+              EL Glamorous
+            </span>
+            ?
+          </h2>
+          <p className="text-base leading-8 text-gray-600 sm:text-lg">
+            EL Glamorous Face and Body Clinic has grown from a single branch 
+            into a trusted beauty destination with four locations. 
+            We offer expert facial care, slimming treatments, massage, hair, 
+            and nail services—all designed to enhance your natural beauty.
           </p>
-        </article>
-        <article className="rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-gray-900">What El Glam Offers</h2>
-          <p className="mt-3 text-sm leading-7 text-gray-600">
-            We provide a complete beauty and wellness experience, from salon styling and treatments
-            to face and body care. Our team combines modern techniques with client-first service to
-            deliver safe, effective, and confidence-boosting results.
+          <p className="text-base leading-8 text-gray-600 sm:text-lg">
+            With a perfect balance of quality, affordability, and personalized care, 
+            we are committed to helping you look and feel your best—confident, radiant, 
+            and truly glamorous.
           </p>
-        </article>
+          <div className="flex flex-wrap gap-3">
+            <span className="about-pill inline-flex items-center gap-2 rounded-full border border-pink-200 bg-pink-50 px-4 py-2 text-sm font-semibold text-pink-700">
+              <Heart className="h-4 w-4" /> Client-Centered
+            </span>
+            <span className="about-pill inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-2 text-sm font-semibold text-purple-700">
+              <Sparkles className="h-4 w-4" /> Premium Quality
+            </span>
+            <span className="about-pill inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700">
+              <Star className="h-4 w-4" /> Award Winning
+            </span>
+          </div>
+        </div>
       </section>
 
-      <section className="mx-auto grid max-w-5xl gap-6 px-4 py-10 sm:px-6 lg:grid-cols-3 lg:px-8">
-        <article className="rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900">Mission</h3>
-          <p className="mt-3 text-sm leading-7 text-gray-600">
-            To provide accessible, high-quality beauty and wellness services that help every client
-            feel confident and cared for.
-          </p>
-        </article>
-        <article className="rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900">Vision</h3>
-          <p className="mt-3 text-sm leading-7 text-gray-600">
-            To become a trusted name in beauty and body care known for excellence, innovation, and
-            meaningful client relationships.
-          </p>
-        </article>
-        <article className="rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900">Background</h3>
-          <p className="mt-3 text-sm leading-7 text-gray-600">
-            El Glam continues to grow through a commitment to professional standards, continuous
-            learning, and a service culture that values every person who walks through our doors.
-          </p>
-        </article>
+      <section className="founder-section bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50 py-20">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <div className="reveal space-y-5">
+            <span className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-md">
+              👑 Leadership
+            </span>
+            <h2 className="text-4xl font-bold text-gray-900 sm:text-5xl">Meet the Owner</h2>
+            <article className="rounded-3xl bg-white p-6 shadow-lg sm:p-8">
+              <h3 className="text-3xl font-bold text-gray-900">Emily P. Loranas</h3>
+              <p className="mt-1 text-lg font-semibold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+                Founder &amp; Creative Director
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="inline-flex items-center gap-2 rounded-full bg-pink-50 px-3 py-1 text-sm font-medium text-pink-700">
+                  <Clock3 className="h-4 w-4" /> 15+ Years
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full bg-purple-50 px-3 py-1 text-sm font-medium text-purple-700">
+                  <Award className="h-4 w-4" /> Certified Expert
+                </span>
+              </div>
+              <p className="mt-5 text-base leading-8 text-gray-600">
+                At the heart of EL Glamorous Face & Body Clinic is its visionary CEO, 
+                Emily P. Loranas, a passionate leader committed to redefining beauty 
+                and wellness in Central Visayas. Guided by her philosophy, 
+                “Quality service above all,” she has built a team that delivers 
+                personalized treatments focused on enhancing both 
+                appearance and confidence.
+              </p>
+              <p className="mt-4 text-base leading-8 text-gray-600">
+                With a blend of advanced technology and genuine care, 
+                the clinic offers more than just services—it creates 
+                meaningful experiences of self-discovery and rejuvenation. 
+                Under her leadership, EL Glamorous continues to grow as a 
+                trusted destination known for its consistency, innovation, and heartfelt service.
+              </p>
+            </article>
+            <div className="rounded-3xl bg-gradient-to-r from-pink-500 to-purple-500 p-6 text-white shadow-xl">
+              <p className="text-4xl leading-none opacity-60">"</p>
+              <p className="mt-2 text-lg leading-8">
+                True beauty begins when you feel seen, cared for, and empowered to shine in your
+                own way.
+              </p>
+              <div className="mt-4 flex items-center gap-3 text-sm font-semibold">
+                <span className="h-px w-8 bg-white/70" />
+                Emily P. Loranas
+              </div>
+            </div>
+          </div>
+
+          <div className="reveal relative founder-photo-shell">
+            <div className="absolute -right-4 -top-4 h-20 w-20 rounded-tr-3xl border-t-4 border-r-4 border-pink-300" />
+            <div className="absolute -left-10 top-20 h-56 w-56 rounded-full bg-pink-200/70 blur-3xl" />
+            <div className="absolute -right-6 bottom-12 h-52 w-52 rounded-full bg-purple-200/70 blur-3xl" />
+            <div className="founder-photo-shimmer pointer-events-none absolute inset-0 z-20 rounded-3xl" />
+            <img
+              src={founderPhoto}
+              alt="Sofia Martinez, founder of El Glam"
+              className="founder-photo-image relative z-10 h-full min-h-[480px] w-full rounded-3xl object-cover shadow-2xl"
+            />
+            <div className="absolute inset-0 z-20 rounded-3xl bg-gradient-to-t from-black/35 to-transparent" />
+          </div>
+        </div>
+      </section>
+
+      <section className="animated-gradient-bg py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="reveal mx-auto max-w-3xl text-center">
+            <span className="inline-flex items-center rounded-full bg-white px-5 py-2 text-sm font-semibold text-gray-700 shadow-md">
+              ⭐ Our Promise
+            </span>
+            <h2 className="mt-5 text-4xl font-bold text-gray-900 sm:text-5xl">
+              What We&apos;re{' '}
+              <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+                Known For
+              </span>
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-gray-600">
+              Every detail of our service is designed around excellence, comfort, and elevated
+              beauty results.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            {promiseCards.map((item) => {
+              const Icon = item.icon
+              return (
+                <article
+                  key={item.title}
+                  className="reveal group relative overflow-hidden rounded-3xl border border-pink-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+                >
+                  <Icon className="absolute -bottom-5 -right-3 h-24 w-24 text-pink-100 transition-colors group-hover:text-pink-200" />
+                  <div
+                    className={`relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r ${item.gradient} text-white shadow-lg transition-transform duration-500 group-hover:rotate-6`}
+                  >
+                    <Icon className="h-7 w-7" />
+                  </div>
+                  <h3 className="relative mt-5 text-xl font-bold text-gray-900">{item.title}</h3>
+                  <p className="relative mt-3 text-sm leading-7 text-gray-600">{item.description}</p>
+                </article>
+              )
+            })}
+          </div>
+        </div>
       </section>
     </main>
   )

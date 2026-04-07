@@ -301,13 +301,12 @@ const parsePrice = (p) => {
 }
 
 const TAG_RULES = {
-  massage: ['massage'],
-  inject: ['gluta', 'inject', 'drip', 'shot'],
-  major: ['rebond', 'laser', 'treatment'],
+  massage: ['massage', 'ventosa', 'cupping'],
+  gluta: ['gluta', 'inject', 'drip', 'shot', 'vitamin c', 'collagen', 'placenta', 'stem cell'],
 }
 
-const getTags = (name) => {
-  const lower = name.toLowerCase()
+const getTags = ({ name, subcategory = '' }) => {
+  const lower = `${name} ${subcategory}`.toLowerCase()
   return Object.entries(TAG_RULES)
     .filter(([_, words]) => words.some((w) => lower.includes(w)))
     .map(([tag]) => tag)
@@ -323,7 +322,7 @@ export const SERVICE_PRODUCT_CATALOG = serviceCategories.flatMap((cat) =>
       label: s.name,
       kind: 'service',
       basePrice: parsePrice(s.price),
-      tags: getTags(s.name),
+      tags: getTags({ name: s.name, subcategory: sub.subcategory }),
     }))
   )
 )
@@ -331,49 +330,10 @@ export const SERVICE_PRODUCT_CATALOG = serviceCategories.flatMap((cat) =>
 // ==========================
 // COMMISSION SYSTEM
 // ==========================
-const normalizeName = (n) => n.toLowerCase().replace(/[^a-z]/g, '')
-
-export const getCommissionRate = ({ branchId, employeeName, item, price }) => {
-  const key = normalizeName(employeeName || '')
+export const getCommissionRate = ({ item }) => {
   const tags = Array.isArray(item?.tags) ? item.tags : []
-  const kind = item?.kind || 'service'
-
-  if (kind === 'product' || tags.includes('product')) return 0.1
-
-  if (branchId === 'mandaue' && key === normalizeName('Yekla, Sanny Grace')) {
-    if (tags.includes('massage')) return 0.4
-    if (tags.includes('inject')) return 0.1
-    return 0.05
-  }
-
-  if (branchId === 'pusok' && key === normalizeName('Pedor, Rowena')) {
-    if (price > 499 && tags.includes('major')) return 0.1
-    return 0.05
-  }
-
-  if (branchId === 'pajac') {
-    // Facialist-focused incentives at Pajac.
-    if (key === normalizeName('Belarmino, Mattlaine Clyrr')) {
-      if (tags.includes('massage')) return 0.4
-      if (tags.includes('inject')) return 0.1
-      return 0.05
-    }
-
-    // Barber-focused incentives at Pajac.
-    if (
-      key === normalizeName('Gloria, Francisco') ||
-      key === normalizeName('Demape, Keyn Joshua')
-    ) {
-      if (price > 499 && tags.includes('major')) return 0.1
-      return 0.05
-    }
-
-    return 0.05
-  }
-
-  if (branchId === 'cebu' && key.includes('jennifer')) {
-    return 0.05
-  }
-
+  // Priority: massage (40%) > gluta/drip (10%) > default (5%).
+  if (tags.includes('massage')) return 0.4
+  if (tags.includes('gluta')) return 0.1
   return 0.05
 }

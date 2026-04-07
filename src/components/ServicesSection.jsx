@@ -43,21 +43,21 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="scroll-mt-24 bg-gray-50 py-16 sm:py-20 lg:py-24"
+      className="scroll-mt-24 bg-transparent py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h2 className="text-3xl font-bold text-white sm:text-4xl">
             Our Services
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-gray-600">
-            Explore our main service categories, then browse detailed offerings
-            by branch and subcategory.
+          <p className="mx-auto mt-3 max-w-2xl text-white/95">
+            Explore our main service categories, then browse detailed offerings by branch and
+            subcategory.
           </p>
         </div>
 
         {/* Category cards */}
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
+        <div className="mt-12 grid gap-8 md:grid-cols-3">
           {serviceCategories.map((category) => {
             const meta = categoryMeta[category.id]
             if (!meta) return null
@@ -66,7 +66,10 @@ export default function ServicesSection() {
             return (
               <div
                 key={category.id}
-                className={isActive ? 'rounded-2xl ring-2 ring-accent' : ''}
+                className={`service-animate-card rounded-2xl transition ${
+                  isActive ? 'scale-[1.01] ring-2 ring-accent shadow-xl' : ''
+                }`}
+                style={{ animationDelay: `${serviceCategories.indexOf(category) * 120}ms` }}
               >
                 <ServiceCard
                   image={meta.image}
