@@ -9,9 +9,9 @@ export default function ModalShell({ open, onClose, title, children }) {
     >
       {/* Wrapper creates space below fixed header and above bottom of screen */}
       <div className="pointer-events-none flex w-full justify-center pt-24 pb-6 sm:pt-28 sm:pb-8">
-        <div className="pointer-events-auto w-full max-w-4xl max-h-[calc(100vh-6rem-2rem)] overflow-y-auto rounded-3xl bg-white shadow-2xl">
+        <div className="pointer-events-auto w-full max-w-4xl max-h-[calc(100dvh-6rem-2rem)] overflow-y-auto rounded-3xl bg-white shadow-2xl">
           <div className="flex items-center justify-between border-b border-gray-100 px-6 py-3 sm:px-8 sm:py-4">
-            <div>
+            <div className="min-w-0 pr-2">
               <p className="text-xs font-semibold uppercase tracking-wide text-accent">
                 Branch landmark
               </p>

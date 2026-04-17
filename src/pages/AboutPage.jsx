@@ -9,31 +9,31 @@ const promiseCards = [
     icon: Sparkles,
     title: 'Premium Beauty Services',
     description: 'From signature facials to luxury styling, every service is personalized with care.',
-    gradient: 'from-pink-500 to-rose-400',
+    gradient: 'from-fuchsia-600 to-purple-600',
   },
   {
     icon: Award,
     title: 'Skilled Professionals',
     description: 'Our experts are trained in advanced techniques and industry best practices.',
-    gradient: 'from-purple-500 to-pink-500',
+    gradient: 'from-purple-600 to-fuchsia-600',
   },
   {
     icon: Heart,
     title: 'Customer Satisfaction',
     description: 'We prioritize comfort, trust, and outcomes that make every guest feel confident.',
-    gradient: 'from-rose-400 to-purple-500',
+    gradient: 'from-fuchsia-500 to-purple-600',
   },
   {
     icon: Calendar,
     title: 'Modern Booking Experience',
     description: 'Simple scheduling, thoughtful follow-up, and seamless service from start to finish.',
-    gradient: 'from-pink-500 to-purple-500',
+    gradient: 'from-fuchsia-600 to-purple-600',
   },
 ]
 
 function GradientBadge({ children }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-gradient-to-r from-pink-500 to-purple-500 px-5 py-2 text-sm font-semibold text-white shadow-md">
+    <span className="inline-flex items-center rounded-full bg-gradient-to-r from-fuchsia-600 to-purple-700 px-5 py-2 text-sm font-semibold text-white shadow-md">
       {children}
     </span>
   )
@@ -60,10 +60,10 @@ export default function AboutPage() {
   return (
     <main className="overflow-x-hidden bg-white text-gray-700">
       <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet"></link>
-      <section className="relative isolate min-h-[60vh] overflow-hidden bg-gradient-to-br from-pink-200 via-rose-100 to-purple-300 md:min-h-[70vh]">
-        <div className="hero-orb absolute left-8 top-20 h-48 w-48 rounded-full bg-pink-300/60 blur-3xl" />
-        <div className="hero-orb-delay absolute right-12 top-28 h-64 w-64 rounded-full bg-purple-300/50 blur-3xl" />
-        <div className="hero-orb absolute bottom-14 left-1/3 h-44 w-44 rounded-full bg-rose-200/60 blur-3xl" />
+      <section className="relative isolate min-h-[60vh] overflow-hidden bg-gradient-to-br from-fuchsia-200 via-purple-100 to-violet-300 md:min-h-[70vh]">
+        <div className="hero-orb absolute left-8 top-20 hidden h-48 w-48 rounded-full bg-fuchsia-300/60 blur-3xl sm:block" />
+        <div className="hero-orb-delay absolute right-12 top-28 hidden h-64 w-64 rounded-full bg-purple-300/50 blur-3xl sm:block" />
+        <div className="hero-orb absolute bottom-14 left-1/3 hidden h-44 w-44 rounded-full bg-fuchsia-200/60 blur-3xl sm:block" />
 
         <img
           src="https://images.unsplash.com/photo-1526045478516-99145907023c?auto=format&fit=crop&w=900&q=80"
@@ -73,15 +73,15 @@ export default function AboutPage() {
 
         <div className="mx-auto grid max-w-7xl gap-8 px-4 pb-12 pt-16 sm:px-6 md:grid-cols-2 md:items-center md:gap-10 md:pb-16 md:pt-20 lg:px-8">
           <div className="reveal space-y-6">
-            <p className="inline-flex rounded-full border border-pink-300/50 bg-white/70 px-4 py-2 text-sm font-medium text-pink-700">
+            <p className="inline-flex rounded-full border border-fuchsia-300/50 bg-white/70 px-4 py-2 text-sm font-medium text-fuchsia-700">
               Premium Salon and Spa Experience
             </p>
            <h1
-  className="text-6xl sm:text-6xl md:text-8xl leading-tight"
+  className="text-4xl leading-tight sm:text-5xl md:text-7xl"
   style={{
     fontFamily: "'Dancing Script', cursive",
     fontWeight: 500,
-    color: '#af4f67',
+    color: '#7e22ce',
   }}
 >
   Bring out the
@@ -109,14 +109,14 @@ export default function AboutPage() {
 
       <section className="about-us-section relative mx-auto grid max-w-7xl gap-12 overflow-hidden rounded-[2.25rem] px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div className="reveal relative about-photo-shell">
-          <div className="absolute -left-8 -top-8 h-48 w-48 rounded-full bg-pink-200/70 blur-3xl" />
+          <div className="absolute -left-8 -top-8 h-48 w-48 rounded-full bg-fuchsia-200/70 blur-3xl" />
           <div className="absolute -right-4 -bottom-8 h-44 w-44 rounded-full bg-purple-200/70 blur-3xl" />
           <img
             src={aboutWhatIsPhoto}
             alt="Elegant salon interior"
-            className="about-photo-image relative z-10 h-[480px] w-full rounded-3xl object-cover shadow-xl"
+            className="about-photo-image relative z-10 h-[340px] w-full rounded-3xl object-cover shadow-xl sm:h-[420px] lg:h-[480px]"
           />
-          <div className="about-photo-overlay absolute inset-0 z-20 rounded-3xl bg-gradient-to-t from-pink-500/35 via-transparent to-transparent" />
+          <div className="about-photo-overlay absolute inset-0 z-20 rounded-3xl bg-gradient-to-t from-fuchsia-600/35 via-transparent to-transparent" />
           <div className="about-est-badge absolute bottom-6 left-6 z-30 rounded-2xl bg-white/90 px-5 py-3 shadow-lg">
             <p className="text-sm font-semibold text-gray-900">Est. Since 2017</p>
           </div>
@@ -126,7 +126,7 @@ export default function AboutPage() {
           <GradientBadge>✨ About Us</GradientBadge>
           <h2 className="text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl">
             What is{' '}
-            <span className="about-gradient-text bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+            <span className="about-gradient-text bg-gradient-to-r from-fuchsia-600 to-purple-700 bg-clip-text text-transparent">
               EL Glamorous
             </span>
             ?
@@ -143,20 +143,20 @@ export default function AboutPage() {
             and truly glamorous.
           </p>
           <div className="flex flex-wrap gap-3">
-            <span className="about-pill inline-flex items-center gap-2 rounded-full border border-pink-200 bg-pink-50 px-4 py-2 text-sm font-semibold text-pink-700">
+            <span className="about-pill inline-flex items-center gap-2 rounded-full border border-fuchsia-200 bg-fuchsia-50 px-4 py-2 text-sm font-semibold text-fuchsia-700">
               <Heart className="h-4 w-4" /> Client-Centered
             </span>
             <span className="about-pill inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-2 text-sm font-semibold text-purple-700">
               <Sparkles className="h-4 w-4" /> Premium Quality
             </span>
-            <span className="about-pill inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700">
+            <span className="about-pill inline-flex items-center gap-2 rounded-full border border-fuchsia-200 bg-fuchsia-50 px-4 py-2 text-sm font-semibold text-fuchsia-700">
               <Star className="h-4 w-4" /> Award Winning
             </span>
           </div>
         </div>
       </section>
 
-      <section className="founder-section bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50 py-20">
+      <section className="founder-section bg-gradient-to-br from-fuchsia-50 via-purple-50 to-violet-50 py-20">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div className="reveal space-y-5">
             <span className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-md">
@@ -165,11 +165,11 @@ export default function AboutPage() {
             <h2 className="text-4xl font-bold text-gray-900 sm:text-5xl">Meet the Owner</h2>
             <article className="rounded-3xl bg-white p-6 shadow-lg sm:p-8">
               <h3 className="text-3xl font-bold text-gray-900">Emily P. Loranas</h3>
-              <p className="mt-1 text-lg font-semibold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+              <p className="mt-1 text-lg font-semibold bg-gradient-to-r from-fuchsia-600 to-purple-700 bg-clip-text text-transparent">
                 Founder &amp; Creative Director
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
-                <span className="inline-flex items-center gap-2 rounded-full bg-pink-50 px-3 py-1 text-sm font-medium text-pink-700">
+                <span className="inline-flex items-center gap-2 rounded-full bg-fuchsia-50 px-3 py-1 text-sm font-medium text-fuchsia-700">
                   <Clock3 className="h-4 w-4" /> 15+ Years
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full bg-purple-50 px-3 py-1 text-sm font-medium text-purple-700">
@@ -192,7 +192,7 @@ export default function AboutPage() {
                 trusted destination known for its consistency, innovation, and heartfelt service.
               </p>
             </article>
-            <div className="rounded-3xl bg-gradient-to-r from-pink-500 to-purple-500 p-6 text-white shadow-xl">
+            <div className="rounded-3xl bg-gradient-to-r from-fuchsia-600 to-purple-700 p-6 text-white shadow-xl">
               <p className="text-4xl leading-none opacity-60">"</p>
               <p className="mt-2 text-lg leading-8">
                 True beauty begins when you feel seen, cared for, and empowered to shine in your
@@ -206,14 +206,14 @@ export default function AboutPage() {
           </div>
 
           <div className="reveal relative founder-photo-shell">
-            <div className="absolute -right-4 -top-4 h-20 w-20 rounded-tr-3xl border-t-4 border-r-4 border-pink-300" />
-            <div className="absolute -left-10 top-20 h-56 w-56 rounded-full bg-pink-200/70 blur-3xl" />
+            <div className="absolute -right-4 -top-4 h-20 w-20 rounded-tr-3xl border-t-4 border-r-4 border-fuchsia-300" />
+            <div className="absolute -left-10 top-20 h-56 w-56 rounded-full bg-fuchsia-200/70 blur-3xl" />
             <div className="absolute -right-6 bottom-12 h-52 w-52 rounded-full bg-purple-200/70 blur-3xl" />
             <div className="founder-photo-shimmer pointer-events-none absolute inset-0 z-20 rounded-3xl" />
             <img
               src={founderPhoto}
               alt="Sofia Martinez, founder of El Glam"
-              className="founder-photo-image relative z-10 h-full min-h-[480px] w-full rounded-3xl object-cover shadow-2xl"
+              className="founder-photo-image relative z-10 h-full min-h-[340px] w-full rounded-3xl object-cover shadow-2xl sm:min-h-[420px] lg:min-h-[480px]"
             />
             <div className="absolute inset-0 z-20 rounded-3xl bg-gradient-to-t from-black/35 to-transparent" />
           </div>
@@ -228,7 +228,7 @@ export default function AboutPage() {
             </span>
             <h2 className="mt-5 text-4xl font-bold text-gray-900 sm:text-5xl">
               What We&apos;re{' '}
-              <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-fuchsia-600 to-purple-700 bg-clip-text text-transparent">
                 Known For
               </span>
             </h2>
@@ -244,9 +244,9 @@ export default function AboutPage() {
               return (
                 <article
                   key={item.title}
-                  className="reveal group relative overflow-hidden rounded-3xl border border-pink-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+                  className="reveal group relative overflow-hidden rounded-3xl border border-fuchsia-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
                 >
-                  <Icon className="absolute -bottom-5 -right-3 h-24 w-24 text-pink-100 transition-colors group-hover:text-pink-200" />
+                  <Icon className="absolute -bottom-5 -right-3 h-24 w-24 text-fuchsia-100 transition-colors group-hover:text-fuchsia-200" />
                   <div
                     className={`relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r ${item.gradient} text-white shadow-lg transition-transform duration-500 group-hover:rotate-6`}
                   >

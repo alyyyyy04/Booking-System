@@ -55,7 +55,7 @@ export default function ServicesSelection() {
 
   return (
     <div className="booking-flow-bg relative min-h-screen overflow-hidden">
-      <div className="pointer-events-none absolute -left-16 top-28 h-52 w-52 rounded-full bg-rose-200/60 blur-3xl" />
+      <div className="pointer-events-none absolute -left-16 top-28 h-52 w-52 rounded-full bg-fuchsia-200/60 blur-3xl" />
       <div className="pointer-events-none absolute -right-16 top-1/2 h-56 w-56 rounded-full bg-purple-200/55 blur-3xl" />
       <div className="mx-auto max-w-4xl px-4 py-8 sm:py-12">
         <Link
@@ -75,7 +75,7 @@ export default function ServicesSelection() {
           </p>
         </div>
 
-        <div className="mb-6 max-w-xs">
+        <div className="mb-6 w-full max-w-full sm:max-w-md">
           <label
             htmlFor="service-search"
             className="block text-sm font-medium text-gray-700"
@@ -106,13 +106,13 @@ export default function ServicesSelection() {
                 <button
                   type="button"
                   onClick={() => toggleCategory(category.id)}
-                  className="flex w-full items-center justify-between p-6 text-left transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-inset"
+                  className="flex w-full items-center justify-between gap-3 p-4 text-left transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-inset sm:p-6"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                      <Icon className="h-7 w-7" strokeWidth={1.5} />
+                  <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent sm:h-14 sm:w-14">
+                      <Icon className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={1.5} />
                     </div>
-                    <span className="text-xl font-semibold text-gray-900">
+                    <span className="min-w-0 text-lg font-semibold text-gray-900 sm:text-xl">
                       {category.title}
                     </span>
                   </div>
@@ -121,7 +121,7 @@ export default function ServicesSelection() {
                   />
                 </button>
                 {isExpanded && (
-                  <div className="border-t border-gray-100 bg-gray-50/50 px-6 pb-6 pt-2">
+                  <div className="border-t border-gray-100 bg-gray-50/50 px-4 pb-5 pt-2 sm:px-6 sm:pb-6">
                     <div className="space-y-6">
                       {category.data.map((group) => (
                         <div key={group.subcategory}>
@@ -202,10 +202,10 @@ export default function ServicesSelection() {
               {selectedServices.map((service) => (
                 <li
                   key={`${service.name}-${service.price}`}
-                  className="flex items-center justify-between gap-2 rounded-lg bg-gray-50 px-3 py-2"
+                  className="flex items-start justify-between gap-2 rounded-lg bg-gray-50 px-3 py-2"
                 >
-                  <span className="font-medium text-gray-900">{service.name}</span>
-                  <span className="text-accent font-semibold">{service.price}</span>
+                  <span className="min-w-0 pr-2 font-medium text-gray-900">{service.name}</span>
+                  <span className="shrink-0 text-accent font-semibold">{service.price}</span>
                 </li>
               ))}
             </ul>

@@ -45,7 +45,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="scroll-mt-24 bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 py-16 sm:py-20"
+      className="scroll-mt-24 bg-gradient-to-br from-fuchsia-50 via-purple-50 to-violet-50 py-16 sm:py-20"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
@@ -122,7 +122,7 @@ export default function ContactSection() {
                               onError={(e) => handleStylistPhotoError(e, photoCandidates)}
                             />
                           </div>
-                          <div>
+                          <div className="min-w-0">
                             <p className="font-semibold text-gray-900">{member.name}</p>
                             <p className="text-xs font-medium uppercase tracking-wide text-accent">
                               {member.role}

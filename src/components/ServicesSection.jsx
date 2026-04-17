@@ -92,10 +92,10 @@ export default function ServicesSection() {
         </div>
         {/* Modal overlay for active category services */}
         {showModal && activeCategory && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-8">
-            <div className="relative max-h-[100vh] w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl">
-              <div className="flex items-start justify-between border-b border-gray-100 px-6 py-4 sm:px-8">
-                <div>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-6 sm:py-8">
+            <div className="relative max-h-[92dvh] w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl">
+              <div className="flex items-start justify-between border-b border-gray-100 px-4 py-4 sm:px-8">
+                <div className="min-w-0 pr-2">
                   <h3 className="mt-1 text-xl font-semibold text-gray-900 sm:text-2xl">
                     {activeCategory.title}
                   </h3>
@@ -112,7 +112,7 @@ export default function ServicesSection() {
                 </button>
               </div>
 
-              <div className="max-h-[60vh] space-y-4 overflow-y-auto px-6 py-4 sm:px-8">
+              <div className="max-h-[68dvh] space-y-4 overflow-y-auto px-4 py-4 sm:px-8">
                 {activeCategory.data.map((group) => {
                   const isOpen = openSubcategory === group.subcategory
                   return (
@@ -123,12 +123,12 @@ export default function ServicesSection() {
                       <button
                         type="button"
                         onClick={() => handleToggleSubcategory(group.subcategory)}
-                        className="flex w-full items-center justify-between px-5 py-3 text-left transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-inset"
+                        className="flex w-full items-center justify-between gap-3 px-5 py-3 text-left transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-inset"
                       >
-                        <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 sm:text-sm">
+                        <span className="min-w-0 flex-1 text-xs font-semibold uppercase tracking-wide text-gray-800 sm:text-sm">
                           {group.subcategory}
                         </span>
-                        <span className="text-[11px] text-gray-500">
+                        <span className="shrink-0 text-[11px] text-gray-500">
                           {isOpen ? 'Hide services' : 'View services'}
                         </span>
                       </button>

@@ -215,10 +215,10 @@ export default function StylistSelection() {
             {services.map((service) => (
               <li
                 key={`${service.name}-${service.price}`}
-                className="flex items-center justify-between gap-2"
+                className="flex items-start justify-between gap-2"
               >
-                <span className="font-medium text-gray-900">{service.name}</span>
-                <span className="text-accent font-semibold">{service.price}</span>
+                <span className="min-w-0 pr-2 font-medium text-gray-900">{service.name}</span>
+                <span className="shrink-0 text-accent font-semibold">{service.price}</span>
               </li>
             ))}
           </ul>

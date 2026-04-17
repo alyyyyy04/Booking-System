@@ -22,9 +22,9 @@ export default function ServiceCard({
         />
       </div>
       <div className="service-card-body flex flex-1 flex-col p-6">
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 items-center gap-2">
           {Icon && <Icon className="service-card-icon h-5 w-5 shrink-0 text-accent" aria-hidden />}
-          <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
+          <h3 className="min-w-0 text-xl font-semibold text-gray-900">{title}</h3>
         </div>
         <p className="mt-2 flex-1 text-gray-600">{description}</p>
         <div className="mt-4 flex items-center justify-between">

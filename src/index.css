@@ -4,13 +4,27 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --theme-fuchsia-600: #c026d3;
+  --theme-fuchsia-500: #d946ef;
+  --theme-purple-700: #7e22ce;
+  --theme-purple-100: #f3e8ff;
+  --theme-surface: #fdf4ff;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   font-family: 'DM Sans', system-ui, sans-serif;
-  background-color: #ffffff;
+  color: #3f3f46;
+  background: linear-gradient(160deg, #fdf4ff 0%, #faf5ff 45%, #ffffff 100%);
+}
+
+::selection {
+  color: #ffffff;
+  background-color: var(--theme-fuchsia-600);
 }
 
 .reveal {
@@ -31,6 +45,45 @@ body {
 .hero-orb-delay {
   animation: floatOrb 14s ease-in-out infinite;
   animation-delay: 2s;
+}
+
+.hero-aurora {
+  background:
+    radial-gradient(circle at 15% 18%, rgba(236, 72, 153, 0.32), transparent 38%),
+    radial-gradient(circle at 84% 78%, rgba(147, 51, 234, 0.32), transparent 36%),
+    radial-gradient(circle at 55% 24%, rgba(59, 130, 246, 0.18), transparent 32%);
+  animation: sectionAurora 11s linear infinite;
+}
+
+.hero-glass-panel {
+  position: relative;
+  background: linear-gradient(145deg, rgba(17, 24, 39, 0.45), rgba(17, 24, 39, 0.3));
+  backdrop-filter: blur(16px);
+}
+
+.hero-glass-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.12), rgba(217, 70, 239, 0.32));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.hero-glass-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.2) 50%, transparent 67%);
+  transform: translateX(-120%);
+  animation: shimmerSweep 6.2s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .animated-gradient-bg {
@@ -250,7 +303,25 @@ body {
 }
 
 .booking-flow-bg {
-  background-color: #F5D2D2;
+  background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 55%, #f3e8ff 100%);
+}
+
+.booking-dark-bg {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(244, 114, 182, 0.2), transparent 38%),
+    radial-gradient(circle at 86% 82%, rgba(168, 85, 247, 0.18), transparent 40%),
+    linear-gradient(135deg, #10061e 0%, #1b1030 45%, #28133f 100%);
+}
+
+.booking-peach-bg {
+  background: linear-gradient(140deg, #ffe8de 0%, #ffdcd0 46%, #ffe9df 100%);
+}
+
+.booking-peach-overlay {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.55), transparent 28%),
+    radial-gradient(circle at 84% 82%, rgba(255, 255, 255, 0.45), transparent 26%),
+    radial-gradient(circle at 76% 16%, rgba(251, 191, 183, 0.4), transparent 23%);
 }
 
 .booking-fade-up {
@@ -265,8 +336,37 @@ body {
 
 .booking-interactive-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(225, 29, 72, 0.35);
-  box-shadow: 0 22px 36px -26px rgba(225, 29, 72, 0.55);
+  border-color: rgba(192, 38, 211, 0.38);
+  box-shadow: 0 22px 36px -26px rgba(126, 34, 206, 0.5);
+}
+
+.booking-dark-card {
+  transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease,
+    background-color 260ms ease;
+}
+
+.booking-dark-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(244, 114, 182, 0.5);
+  background-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 24px 45px -28px rgba(76, 29, 149, 0.95);
+}
+
+.booking-paper-blob {
+  border-radius: 57% 43% 52% 48% / 46% 55% 45% 54%;
+  filter: blur(0.5px);
+}
+
+.booking-peach-card {
+  transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease,
+    background-color 240ms ease;
+}
+
+.booking-peach-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(225, 29, 72, 0.25);
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 18px 35px -24px rgba(190, 24, 93, 0.48);
 }
 
 .navbar-link {
@@ -281,7 +381,7 @@ body {
   bottom: 0.35rem;
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #ec4899, #a855f7);
+  background: linear-gradient(90deg, var(--theme-fuchsia-500), var(--theme-purple-700));
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 220ms ease;
@@ -433,6 +533,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-photo-shell,
+  .hero-aurora,
+  .hero-glass-shine::after,
   .about-photo-shell,
   .about-photo-overlay,
   .about-est-badge,
@@ -448,6 +550,12 @@ body {
   .testimonial-card,
   .booking-fade-up {
     animation: none;
+  }
+  .booking-dark-card {
+    transition: none;
+  }
+  .booking-peach-card {
+    transition: none;
   }
   .navbar-link::after {
     transition: none;

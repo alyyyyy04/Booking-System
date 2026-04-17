@@ -212,12 +212,12 @@ export default function AppointmentDetails() {
   if (submitted) {
     return (
       <div className="booking-flow-bg relative flex min-h-[82vh] items-center justify-center overflow-hidden px-4 py-8">
-        <div className="pointer-events-none absolute -left-16 top-12 h-56 w-56 rounded-full bg-pink-300/35 blur-3xl" />
+        <div className="pointer-events-none absolute -left-16 top-12 h-56 w-56 rounded-full bg-fuchsia-300/35 blur-3xl" />
         <div className="pointer-events-none absolute -right-16 bottom-8 h-64 w-64 rounded-full bg-fuchsia-300/30 blur-3xl" />
 
         <div className="booking-fade-up w-full max-w-xl rounded-3xl border border-white/70 bg-white/85 p-6 shadow-2xl backdrop-blur-md sm:p-8">
-          <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-emerald-100 to-green-50 shadow-inner">
-            <CheckCircle className="h-12 w-12 text-green-600" />
+          <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-fuchsia-100 to-purple-100 shadow-inner">
+            <CheckCircle className="h-12 w-12 text-fuchsia-600" />
           </div>
 
           <h2 className="mt-5 text-center text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
@@ -230,32 +230,32 @@ export default function AppointmentDetails() {
 
           <div className="mt-6 rounded-2xl border border-pink-100 bg-white/90 p-4">
             <p className="flex items-center gap-2 text-sm font-medium text-gray-700">
-              <MapPin className="h-4 w-4 text-pink-500" />
+              <MapPin className="h-4 w-4 text-fuchsia-500" />
               Branch: <span className="font-semibold text-gray-900">{branchName}</span>
             </p>
           </div>
 
-          <div className="mt-5 rounded-2xl border border-rose-100 bg-rose-50/60 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-rose-500">
+          <div className="mt-5 rounded-2xl border border-fuchsia-100 bg-fuchsia-50/60 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-fuchsia-500">
               Selected Service
             </p>
             <ul className="mt-3 space-y-2">
               {services.map((service) => (
                 <li
                   key={`${service.name}-${service.price}`}
-                  className="flex items-center justify-between gap-3 rounded-lg bg-white px-3 py-2"
+                  className="flex items-start justify-between gap-3 rounded-lg bg-white px-3 py-2"
                 >
-                  <span className="inline-flex items-center gap-2 font-medium text-gray-800">
-                    <Sparkles className="h-4 w-4 text-pink-500" />
+                  <span className="inline-flex min-w-0 items-start gap-2 pr-2 font-medium text-gray-800">
+                    <Sparkles className="h-4 w-4 text-fuchsia-500" />
                     {service.name}
                   </span>
-                  <span className="font-semibold text-rose-600">{service.price}</span>
+                  <span className="shrink-0 font-semibold text-fuchsia-600">{service.price}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="mt-5 rounded-2xl bg-pink-50/80 p-4 text-sm leading-7 text-gray-600">
+          <div className="mt-5 rounded-2xl bg-purple-50/80 p-4 text-sm leading-7 text-gray-600">
             Please wait for a confirmation message from our receptionist. You will receive a text
             once your booking has been reviewed and confirmed.
           </div>
@@ -266,7 +266,7 @@ export default function AppointmentDetails() {
 
           <Link
             to="/"
-            className="mt-7 block w-full rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 py-3 text-center font-semibold text-white shadow-md transition hover:from-pink-600 hover:to-rose-600"
+            className="mt-7 block w-full rounded-xl bg-gradient-to-r from-fuchsia-600 to-purple-700 py-3 text-center font-semibold text-white shadow-md transition hover:from-fuchsia-700 hover:to-purple-800"
           >
             Back to Home
           </Link>
@@ -277,7 +277,7 @@ export default function AppointmentDetails() {
 
   return (
     <div className="booking-flow-bg relative min-h-screen overflow-hidden">
-      <div className="pointer-events-none absolute -left-16 top-20 h-56 w-56 rounded-full bg-pink-200/60 blur-3xl" />
+      <div className="pointer-events-none absolute -left-16 top-20 h-56 w-56 rounded-full bg-fuchsia-200/60 blur-3xl" />
       <div className="pointer-events-none absolute -right-20 bottom-10 h-64 w-64 rounded-full bg-purple-200/55 blur-3xl" />
       <div className="mx-auto max-w-lg px-4 py-8 sm:py-12">
         <Link
@@ -303,12 +303,12 @@ export default function AppointmentDetails() {
                 {services.map((service) => (
                   <li
                     key={`${service.name}-${service.price}`}
-                    className="flex items-center justify-between gap-2"
+                    className="flex items-start justify-between gap-2"
                   >
-                    <span className="font-medium text-gray-900">
+                    <span className="min-w-0 pr-2 font-medium text-gray-900">
                       {service.name}
                     </span>
-                    <span className="text-accent font-semibold">
+                    <span className="shrink-0 text-accent font-semibold">
                       {service.price}
                     </span>
                   </li>
