@@ -55,18 +55,18 @@ export default function ServicesSelection() {
 
   return (
     <div className="booking-flow-bg relative min-h-screen overflow-hidden">
-      <div className="pointer-events-none absolute -left-16 top-28 h-52 w-52 rounded-full bg-fuchsia-200/60 blur-3xl" />
-      <div className="pointer-events-none absolute -right-16 top-1/2 h-56 w-56 rounded-full bg-purple-200/55 blur-3xl" />
+      <div className="pointer-events-none absolute -left-16 top-28 h-52 w-52 rounded-full bg-pink-200/60 blur-3xl" />
+      <div className="pointer-events-none absolute -right-16 top-1/2 h-56 w-56 rounded-full bg-pink-300/50 blur-3xl" />
       <div className="mx-auto max-w-4xl px-4 py-8 sm:py-12">
         <Link
           to="/book"
-          className="mb-6 inline-flex items-center gap-2 text-gray-600 transition hover:text-accent"
+          className="mb-6 inline-flex items-center gap-2 text-gray-600 transition hover:text-[#F13E93]"
         >
           <ArrowLeft className="h-5 w-5" />
           Change branch
         </Link>
         <div className="mb-8">
-          <p className="text-sm font-medium text-accent">Booking at</p>
+          <p className="text-sm font-medium text-[#F13E93]">Booking at</p>
           <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
             {branchName}
           </h1>
@@ -88,7 +88,7 @@ export default function ServicesSelection() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Type a service name, e.g. haircut, facial, massage..."
-            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:border-[#F13E93] focus:outline-none focus:ring-1 focus:ring-[#F13E93]"
           />
         </div>
 
@@ -106,10 +106,10 @@ export default function ServicesSelection() {
                 <button
                   type="button"
                   onClick={() => toggleCategory(category.id)}
-                  className="flex w-full items-center justify-between gap-3 p-4 text-left transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-inset sm:p-6"
+                  className="flex w-full items-center justify-between gap-3 p-4 text-left transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#F13E93] focus:ring-inset sm:p-6"
                 >
                   <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent sm:h-14 sm:w-14">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F13E93]/10 text-[#F13E93] sm:h-14 sm:w-14">
                       <Icon className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={1.5} />
                     </div>
                     <span className="min-w-0 text-lg font-semibold text-gray-900 sm:text-xl">
@@ -125,7 +125,7 @@ export default function ServicesSelection() {
                     <div className="space-y-6">
                       {category.data.map((group) => (
                         <div key={group.subcategory}>
-                          <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-accent">
+                          <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-[#F13E93]">
                             {group.subcategory}
                           </h3>
                           <ul className="space-y-2">
@@ -156,7 +156,7 @@ export default function ServicesSelection() {
                                     <span className="font-medium text-gray-900">
                                       {service.name}
                                     </span>
-                                    <span className="ml-0 block text-accent font-semibold sm:ml-2 sm:inline">
+                                    <span className="ml-0 block font-semibold text-[#F13E93] sm:ml-2 sm:inline">
                                       {service.price}
                                     </span>
                                   </div>
@@ -171,7 +171,7 @@ export default function ServicesSelection() {
                                     className={`shrink-0 rounded-lg px-4 py-2 text-sm font-medium text-white transition ${
                                       isSelected
                                         ? 'bg-gray-500 hover:bg-gray-600'
-                                        : 'bg-accent hover:bg-accent-dark'
+                                        : 'bg-[#F13E93] hover:bg-[#e23488]'
                                     }`}
                                   >
                                     {isSelected ? 'Remove' : 'Add'}
@@ -190,7 +190,7 @@ export default function ServicesSelection() {
           })}
         </div>
 
-        <div className="mt-10 rounded-2xl border border-dashed border-accent/40 bg-white p-5 shadow-sm">
+        <div className="mt-10 rounded-2xl border border-dashed border-[#FF85BB]/60 bg-white p-5 shadow-sm">
           <h2 className="text-lg font-semibold text-gray-900">Selected services</h2>
           {selectedServices.length === 0 ? (
             <p className="mt-2 text-sm text-gray-600">
@@ -205,7 +205,7 @@ export default function ServicesSelection() {
                   className="flex items-start justify-between gap-2 rounded-lg bg-gray-50 px-3 py-2"
                 >
                   <span className="min-w-0 pr-2 font-medium text-gray-900">{service.name}</span>
-                  <span className="shrink-0 text-accent font-semibold">{service.price}</span>
+                  <span className="shrink-0 font-semibold text-[#F13E93]">{service.price}</span>
                 </li>
               ))}
             </ul>
@@ -214,7 +214,7 @@ export default function ServicesSelection() {
             type="button"
             onClick={handleContinue}
             disabled={!selectedServices.length}
-            className="mt-4 w-full rounded-lg bg-accent px-4 py-3 text-sm font-medium text-white shadow-md transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-600"
+            className="mt-4 w-full rounded-lg bg-[#F13E93] px-4 py-3 text-sm font-medium text-white shadow-md transition hover:bg-[#e23488] disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-600"
           >
             Continue to appointment details
           </button>

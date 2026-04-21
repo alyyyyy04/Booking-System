@@ -16,19 +16,16 @@ export default function Navbar() {
   const activePath = useMemo(() => location.pathname, [location.pathname])
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-pink-100/70 bg-white/90 shadow-sm backdrop-blur-md">
+    <header className="relative z-50 w-full border-b border-gray-200 bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <Link to="/" className="group flex min-w-0 items-center gap-3">
           <img
             src={logo}
             alt="EL. Glamorous Face and Body Clinic, Salon and Spa"
-            className="h-9 w-9 rounded-full object-cover ring-2 ring-pink-100 transition group-hover:scale-105 group-hover:ring-pink-200"
+            className="h-8 w-8 rounded-full object-cover transition group-hover:scale-105"
           />
           <div className="min-w-0 leading-tight text-gray-900">
-            <span className="block text-sm font-semibold tracking-tight sm:text-base lg:hidden">
-              EL Glamorous Clinic
-            </span>
-            <span className="hidden truncate text-base font-semibold tracking-tight lg:block">
+            <span className="truncate text-sm font-semibold tracking-tight sm:text-[1.05rem]">
               EL Glamorous Face and Body Clinic, Salon and Spa
             </span>
           </div>
@@ -49,8 +46,8 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 to={link.to}
-                className={`navbar-link rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-pink-50 hover:text-accent lg:px-3.5 ${
-                  activePath === link.to ? 'navbar-link-active text-accent' : ''
+                className={`navbar-link rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition hover:text-gray-900 ${
+                  activePath === link.to ? 'navbar-link-active text-gray-900' : ''
                 }`}
               >
                 {link.label}
@@ -59,7 +56,7 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="navbar-link rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-pink-50 hover:text-accent lg:px-3.5"
+                className="navbar-link rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition hover:text-gray-900"
               >
                 {link.label}
               </a>
@@ -68,7 +65,7 @@ export default function Navbar() {
         </div>
 
         <div
-          className={`absolute left-0 right-0 top-full border-b border-pink-100 bg-white/95 shadow-lg backdrop-blur md:hidden ${
+          className={`absolute left-0 right-0 top-full border-b border-gray-200 bg-white shadow-lg md:hidden ${
             mobileOpen ? 'block' : 'hidden'
           }`}
         >
@@ -78,8 +75,8 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   to={link.to}
-                  className={`navbar-link rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-pink-50 hover:text-accent ${
-                    activePath === link.to ? 'navbar-link-active text-accent' : ''
+                  className={`navbar-link rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition hover:text-gray-900 ${
+                    activePath === link.to ? 'navbar-link-active text-gray-900' : ''
                   }`}
                   onClick={() => setMobileOpen(false)}
                 >
@@ -89,7 +86,7 @@ export default function Navbar() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="navbar-link rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-pink-50 hover:text-accent"
+                  className="navbar-link rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition hover:text-gray-900"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}

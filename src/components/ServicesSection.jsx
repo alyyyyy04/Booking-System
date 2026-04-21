@@ -43,14 +43,14 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="scroll-mt-24 bg-transparent py-16 sm:py-20 lg:py-24"
+      className="scroll-mt-24 bg-[#FFE4EF] pt-0 pb-16 sm:pb-20 lg:pb-24"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="text-3xl font-bold text-black sm:text-4xl">
             Our Services
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-white/95">
+          <p className="mx-auto mt-3 max-w-2xl text-black/95">
             Explore our main service categories, then browse detailed offerings by branch and
             subcategory.
           </p>
@@ -67,7 +67,7 @@ export default function ServicesSection() {
               <div
                 key={category.id}
                 className={`service-animate-card rounded-2xl transition ${
-                  isActive ? 'scale-[1.01] ring-2 ring-accent shadow-xl' : ''
+                  isActive ? 'scale-[1.01] ring-2 ring-[#FF3E9B] shadow-xl' : ''
                 }`}
                 style={{ animationDelay: `${serviceCategories.indexOf(category) * 120}ms` }}
               >
@@ -123,7 +123,7 @@ export default function ServicesSection() {
                       <button
                         type="button"
                         onClick={() => handleToggleSubcategory(group.subcategory)}
-                        className="flex w-full items-center justify-between gap-3 px-5 py-3 text-left transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-inset"
+                        className="flex w-full items-center justify-between gap-3 px-5 py-3 text-left transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#FF3E9B] focus:ring-inset"
                       >
                         <span className="min-w-0 flex-1 text-xs font-semibold uppercase tracking-wide text-gray-800 sm:text-sm">
                           {group.subcategory}
@@ -145,7 +145,7 @@ export default function ServicesSection() {
                                     {service.name}
                                   </p>
                                 </div>
-                                <span className="mt-1 text-right text-accent font-semibold sm:mt-0">
+                                <span className="mt-1 text-right font-semibold text-[#FF3E9B] sm:mt-0">
                                   {service.price}
                                 </span>
                               </li>

@@ -5,11 +5,10 @@
 @tailwind utilities;
 
 :root {
-  --theme-fuchsia-600: #c026d3;
-  --theme-fuchsia-500: #d946ef;
-  --theme-purple-700: #7e22ce;
-  --theme-purple-100: #f3e8ff;
-  --theme-surface: #fdf4ff;
+  --theme-pink-strong: #f13e93;
+  --theme-pink-mid: #ff85bb;
+  --theme-pink-soft: #fe9ec7;
+  --theme-surface: #ffe4ef;
 }
 
 html {
@@ -19,12 +18,12 @@ html {
 body {
   font-family: 'DM Sans', system-ui, sans-serif;
   color: #3f3f46;
-  background: linear-gradient(160deg, #fdf4ff 0%, #faf5ff 45%, #ffffff 100%);
+  background: linear-gradient(160deg, #ffe4ef 0%, #ffd6ea 45%, #ffffff 100%);
 }
 
 ::selection {
   color: #ffffff;
-  background-color: var(--theme-fuchsia-600);
+  background-color: var(--theme-pink-strong);
 }
 
 .reveal {
@@ -42,6 +41,30 @@ body {
   animation: floatOrb 12s ease-in-out infinite;
 }
 
+.hero-bg-zoom {
+  animation: heroBgZoom 18s ease-in-out infinite alternate;
+}
+
+.hero-fade-up {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: heroFadeUp 700ms ease forwards;
+}
+
+.hero-fade-up-delay-1 {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: heroFadeUp 700ms ease forwards;
+  animation-delay: 140ms;
+}
+
+.hero-fade-up-delay-2 {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: heroFadeUp 700ms ease forwards;
+  animation-delay: 260ms;
+}
+
 .hero-orb-delay {
   animation: floatOrb 14s ease-in-out infinite;
   animation-delay: 2s;
@@ -50,7 +73,7 @@ body {
 .hero-aurora {
   background:
     radial-gradient(circle at 15% 18%, rgba(236, 72, 153, 0.32), transparent 38%),
-    radial-gradient(circle at 84% 78%, rgba(147, 51, 234, 0.32), transparent 36%),
+    radial-gradient(circle at 84% 78%, rgba(241, 62, 147, 0.3), transparent 36%),
     radial-gradient(circle at 55% 24%, rgba(59, 130, 246, 0.18), transparent 32%);
   animation: sectionAurora 11s linear infinite;
 }
@@ -87,13 +110,13 @@ body {
 }
 
 .animated-gradient-bg {
-  background: linear-gradient(120deg, #fdf2f8, #fce7f3, #f3e8ff);
+  background: linear-gradient(120deg, #ffe4ef, #ffd6ea, #fe9ec7);
   background-size: 200% 200%;
   animation: gradientShift 12s ease infinite;
 }
 
 .dot-overlay {
-  background-image: radial-gradient(circle at 1px 1px, rgba(168, 85, 247, 0.2) 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 133, 187, 0.22) 1px, transparent 0);
   background-size: 24px 24px;
 }
 
@@ -129,7 +152,7 @@ body {
 
 .about-pill:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 24px -14px rgba(168, 85, 247, 0.8);
+  box-shadow: 0 10px 24px -14px rgba(241, 62, 147, 0.55);
 }
 
 .hero-photo-shell {
@@ -142,7 +165,7 @@ body {
 
 .hero-photo-shell:hover .hero-photo-image {
   transform: scale(1.03) rotate(-0.8deg);
-  box-shadow: 0 30px 56px -26px rgba(76, 29, 149, 0.45);
+  box-shadow: 0 30px 56px -26px rgba(241, 62, 147, 0.35);
 }
 
 .hero-photo-glow {
@@ -214,7 +237,7 @@ body {
   position: absolute;
   inset: auto 0 0 0;
   height: 3px;
-  background: linear-gradient(90deg, rgba(244, 114, 182, 0), rgba(244, 114, 182, 0.85), rgba(168, 85, 247, 0.85), rgba(244, 114, 182, 0));
+  background: linear-gradient(90deg, rgba(244, 114, 182, 0), rgba(241, 62, 147, 0.85), rgba(255, 133, 187, 0.85), rgba(244, 114, 182, 0));
   transform: scaleX(0.3);
   opacity: 0;
   transition: transform 320ms ease, opacity 320ms ease;
@@ -303,13 +326,13 @@ body {
 }
 
 .booking-flow-bg {
-  background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 55%, #f3e8ff 100%);
+  background: #FFE4EF;
 }
 
 .booking-dark-bg {
   background:
     radial-gradient(circle at 12% 10%, rgba(244, 114, 182, 0.2), transparent 38%),
-    radial-gradient(circle at 86% 82%, rgba(168, 85, 247, 0.18), transparent 40%),
+    radial-gradient(circle at 86% 82%, rgba(255, 133, 187, 0.22), transparent 40%),
     linear-gradient(135deg, #10061e 0%, #1b1030 45%, #28133f 100%);
 }
 
@@ -336,8 +359,8 @@ body {
 
 .booking-interactive-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(192, 38, 211, 0.38);
-  box-shadow: 0 22px 36px -26px rgba(126, 34, 206, 0.5);
+  border-color: rgba(241, 62, 147, 0.38);
+  box-shadow: 0 22px 36px -26px rgba(241, 62, 147, 0.4);
 }
 
 .booking-dark-card {
@@ -349,7 +372,7 @@ body {
   transform: translateY(-8px);
   border-color: rgba(244, 114, 182, 0.5);
   background-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 24px 45px -28px rgba(76, 29, 149, 0.95);
+  box-shadow: 0 24px 45px -28px rgba(241, 62, 147, 0.55);
 }
 
 .booking-paper-blob {
@@ -381,7 +404,7 @@ body {
   bottom: 0.35rem;
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--theme-fuchsia-500), var(--theme-purple-700));
+  background: linear-gradient(90deg, var(--theme-pink-mid), var(--theme-pink-strong));
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 220ms ease;
@@ -399,6 +422,26 @@ body {
   }
   50% {
     transform: translate3d(0, -24px, 0);
+  }
+}
+
+@keyframes heroBgZoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -535,6 +578,10 @@ body {
   .hero-photo-shell,
   .hero-aurora,
   .hero-glass-shine::after,
+  .hero-bg-zoom,
+  .hero-fade-up,
+  .hero-fade-up-delay-1,
+  .hero-fade-up-delay-2,
   .about-photo-shell,
   .about-photo-overlay,
   .about-est-badge,

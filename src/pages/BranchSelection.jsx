@@ -22,7 +22,7 @@ export default function BranchSelection() {
   return (
     <div className="booking-flow-bg relative min-h-screen overflow-hidden">
       <div className="pointer-events-none absolute -left-16 top-24 h-56 w-56 rounded-full bg-pink-400/60 blur-3xl" />
-      <div className="pointer-events-none absolute -right-14 bottom-20 h-64 w-64 rounded-full bg-purple-400/50 blur-3xl" />
+      <div className="pointer-events-none absolute -right-14 bottom-20 h-64 w-64 rounded-full bg-pink-300/60 blur-3xl" />
       <div className="mx-auto max-w-4xl px-4 py-12 sm:py-16 lg:py-20">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
@@ -38,10 +38,10 @@ export default function BranchSelection() {
               key={branch.id}
               type="button"
               onClick={() => handleSelect(branch.id)}
-              className="booking-fade-up booking-interactive-card group flex min-h-[160px] flex-col items-center justify-center rounded-2xl border border-white/60 bg-white/85 p-8 shadow-md backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+              className="booking-fade-up booking-interactive-card group flex min-h-[160px] flex-col items-center justify-center rounded-2xl border border-white/60 bg-white/85 p-8 shadow-md backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-[#F13E93] focus:ring-offset-2"
               style={{ animationDelay: `${idx * 90}ms` }}
             >
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent transition group-hover:bg-accent/20">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#F13E93]/12 text-[#F13E93] transition group-hover:bg-[#F13E93]/20">
                 <MapPin className="h-8 w-8" strokeWidth={1.5} aria-hidden />
               </div>
               <span className="mt-4 text-lg font-semibold text-gray-900">

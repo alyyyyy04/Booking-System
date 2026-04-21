@@ -117,8 +117,8 @@ export default function ProductsPage() {
   return (
     <main className="relative z-0 bg-[#fdf4ff] pt-6 pb-8 sm:pt-8 sm:pb-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <section className="mb-5 rounded-2xl border border-purple-100 bg-white/95 p-4 shadow-sm sm:p-5">
-          <h1 className="text-xl font-bold text-fuchsia-600 sm:text-2xl">EL Glamorous Product Ordering</h1>
+        <section className="mb-5 rounded-2xl border border-[#FF85BB]/35 bg-white/95 p-4 shadow-sm sm:p-5">
+          <h1 className="text-xl font-bold text-[#F13E93] sm:text-2xl">EL Glamorous Product Ordering</h1>
           <p className="mt-1 text-sm text-gray-600">
             Seamless shopping flow: Cart, Checkout, Details, Payment, and Confirmation.
           </p>
@@ -131,9 +131,9 @@ export default function ProductsPage() {
                   key={step.key}
                   className={`rounded-lg border px-3 py-2 text-xs font-medium md:text-sm ${
                     active
-                      ? 'border-fuchsia-300 bg-fuchsia-50 text-fuchsia-700'
+                      ? 'border-[#FF85BB] bg-[#FE9EC7]/25 text-[#F13E93]'
                       : done
-                      ? 'border-purple-200 bg-purple-50 text-purple-700'
+                      ? 'border-[#FF85BB] bg-[#FE9EC7]/25 text-[#F13E93]'
                       : 'border-gray-200 bg-white text-gray-500'
                   }`}
                 >
@@ -145,7 +145,7 @@ export default function ProductsPage() {
         </section>
 
         {/* Top section: horizontal container, flex spacing */}
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-purple-100 bg-[#fdf4ff] pb-4 pt-0">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-[#FF85BB]/35 bg-[#FFE4EF] pb-4 pt-0">
           <p className="text-sm text-gray-600 sm:text-base">
             <span className="font-semibold text-gray-900">Our Products</span> <span className="mx-1.5 text-gray-400">•</span>{' '}
             <span className="text-gray-500">Add items to cart, then follow each checkout step.</span>
@@ -183,13 +183,13 @@ export default function ProductsPage() {
                         <p className="font-medium text-gray-900">{item.name}</p>
                         <p className="text-xs text-gray-600">Qty: {item.quantity}</p>
                       </div>
-              <p className="font-semibold text-fuchsia-600">{formatPrice(item.price * item.quantity)}</p>
+              <p className="font-semibold text-[#F13E93]">{formatPrice(item.price * item.quantity)}</p>
                     </div>
                   ))}
                 </div>
                 <div className="mt-4 flex items-center justify-between border-t border-pink-100 pt-4">
                   <p className="text-sm text-gray-700">Total Amount</p>
-                  <p className="text-lg font-bold text-fuchsia-600">{formatPrice(totals.subtotal)}</p>
+                  <p className="text-lg font-bold text-[#F13E93]">{formatPrice(totals.subtotal)}</p>
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <button
@@ -202,7 +202,7 @@ export default function ProductsPage() {
                   <button
                     type="button"
                     disabled={!canConfirmOrder}
-                    className="rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+                    className="rounded-lg bg-[#F13E93] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#e23488] disabled:cursor-not-allowed disabled:bg-gray-300"
                     onClick={() => setCurrentStep('details')}
                   >
                     Confirm Order
@@ -225,7 +225,7 @@ export default function ProductsPage() {
                       value={fullName}
                       onChange={(event) => setFullName(event.target.value)}
                       placeholder="Enter your full name"
-                      className="rounded-lg border border-gray-300 px-3 py-2 outline-none ring-fuchsia-300 transition focus:border-fuchsia-400 focus:ring-2"
+                      className="rounded-lg border border-gray-300 px-3 py-2 outline-none ring-[#FF85BB] transition focus:border-[#F13E93] focus:ring-2"
                     />
                   </label>
                   <label className="flex flex-col gap-1 text-sm">
@@ -235,7 +235,7 @@ export default function ProductsPage() {
                       value={phoneNumber}
                       onChange={(event) => setPhoneNumber(event.target.value)}
                       placeholder="09XXXXXXXXX"
-                      className="rounded-lg border border-gray-300 px-3 py-2 outline-none ring-fuchsia-300 transition focus:border-fuchsia-400 focus:ring-2"
+                      className="rounded-lg border border-gray-300 px-3 py-2 outline-none ring-[#FF85BB] transition focus:border-[#F13E93] focus:ring-2"
                     />
                     <span className={`text-xs ${isPhoneValid || !phoneNumber ? 'text-gray-500' : 'text-red-500'}`}>
                       Phone number must be exactly 11 digits.
@@ -250,8 +250,8 @@ export default function ProductsPage() {
                       type="button"
                       className={`rounded-xl border p-3 text-left transition ${
                         fulfillmentMethod === 'pickup'
-                          ? 'border-fuchsia-300 bg-fuchsia-50'
-                          : 'border-gray-200 bg-white hover:border-fuchsia-200'
+                          ? 'border-[#FF85BB] bg-[#FE9EC7]/25'
+                          : 'border-gray-200 bg-white hover:border-[#FF85BB]'
                       }`}
                       onClick={() => {
                         setFulfillmentMethod('pickup')
@@ -267,8 +267,8 @@ export default function ProductsPage() {
                       type="button"
                       className={`rounded-xl border p-3 text-left transition ${
                         fulfillmentMethod === 'cod'
-                          ? 'border-fuchsia-300 bg-fuchsia-50'
-                          : 'border-gray-200 bg-white hover:border-fuchsia-200'
+                          ? 'border-[#FF85BB] bg-[#FE9EC7]/25'
+                          : 'border-gray-200 bg-white hover:border-[#FF85BB]'
                       }`}
                       onClick={() => setFulfillmentMethod('cod')}
                     >
@@ -287,7 +287,7 @@ export default function ProductsPage() {
                         onChange={(event) => setAddress(event.target.value)}
                         placeholder="House no., street, barangay, city, province"
                         rows={3}
-                        className="rounded-lg border border-gray-300 px-3 py-2 outline-none ring-fuchsia-300 transition focus:border-fuchsia-400 focus:ring-2"
+                        className="rounded-lg border border-gray-300 px-3 py-2 outline-none ring-[#FF85BB] transition focus:border-[#F13E93] focus:ring-2"
                       />
                       <span className="text-xs text-gray-500">Required for COD delivery.</span>
                     </label>
@@ -305,7 +305,7 @@ export default function ProductsPage() {
                   <button
                     type="button"
                     disabled={!canSubmitDetails}
-                    className="rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+                    className="rounded-lg bg-[#F13E93] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#e23488] disabled:cursor-not-allowed disabled:bg-gray-300"
                     onClick={() => setCurrentStep(showPaymentStep ? 'payment' : 'pickup-confirmation')}
                   >
                     Continue
@@ -329,7 +329,7 @@ export default function ProductsPage() {
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-3 font-semibold text-fuchsia-600">Total: {formatPrice(totals.subtotal)}</p>
+                  <p className="mt-3 font-semibold text-[#F13E93]">Total: {formatPrice(totals.subtotal)}</p>
                 </div>
                 <div className="mt-4 rounded-xl border border-gray-200 bg-white p-4 text-sm text-gray-700">
                   <p className="font-medium text-gray-900">Pickup Instructions</p>
@@ -347,7 +347,7 @@ export default function ProductsPage() {
                   </button>
                   <button
                     type="button"
-                    className="rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-700"
+                    className="rounded-lg bg-[#F13E93] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#e23488]"
                     onClick={() => setCurrentStep('final-confirmation')}
                   >
                     Done
@@ -368,8 +368,8 @@ export default function ProductsPage() {
                     type="button"
                     className={`rounded-xl border p-3 text-left transition ${
                       paymentMethod === 'bank'
-                        ? 'border-fuchsia-300 bg-fuchsia-50'
-                        : 'border-gray-200 bg-white hover:border-fuchsia-200'
+                        ? 'border-[#FF85BB] bg-[#FE9EC7]/25'
+                        : 'border-gray-200 bg-white hover:border-[#FF85BB]'
                     }`}
                     onClick={() => setPaymentMethod('bank')}
                   >
@@ -380,8 +380,8 @@ export default function ProductsPage() {
                     type="button"
                     className={`rounded-xl border p-3 text-left transition ${
                       paymentMethod === 'gcash'
-                        ? 'border-fuchsia-300 bg-fuchsia-50'
-                        : 'border-gray-200 bg-white hover:border-fuchsia-200'
+                        ? 'border-[#FF85BB] bg-[#FE9EC7]/25'
+                        : 'border-gray-200 bg-white hover:border-[#FF85BB]'
                     }`}
                     onClick={() => setPaymentMethod('gcash')}
                   >
@@ -423,7 +423,7 @@ export default function ProductsPage() {
                   <button
                     type="button"
                     disabled={!paymentMethod}
-                    className="rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+                    className="rounded-lg bg-[#F13E93] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#e23488] disabled:cursor-not-allowed disabled:bg-gray-300"
                     onClick={() => setCurrentStep('final-confirmation')}
                   >
                     Confirm Payment
@@ -434,7 +434,7 @@ export default function ProductsPage() {
 
             {currentStep === 'final-confirmation' && (
               <div className="rounded-2xl border border-pink-100 bg-white p-4 shadow-sm sm:p-6">
-                <h2 className="text-lg font-semibold text-purple-700 sm:text-xl">Order Placed Successfully!</h2>
+                <h2 className="text-lg font-semibold text-[#F13E93] sm:text-xl">Order Placed Successfully!</h2>
                 <p className="mt-2 text-sm text-gray-700">Your order has been placed successfully.</p>
 
                 <div className="mt-4 rounded-xl border border-pink-100 bg-pink-50/40 p-4">
@@ -446,7 +446,7 @@ export default function ProductsPage() {
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-3 font-semibold text-fuchsia-600">Total: {formatPrice(totals.subtotal)}</p>
+                  <p className="mt-3 font-semibold text-[#F13E93]">Total: {formatPrice(totals.subtotal)}</p>
                   <p className="mt-2 text-sm text-gray-700">
                     Payment method:{' '}
                     <span className="font-medium">
@@ -464,7 +464,7 @@ export default function ProductsPage() {
                 <div className="mt-4 flex flex-wrap gap-2">
                   <button
                     type="button"
-                    className="rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-700"
+                    className="rounded-lg bg-[#F13E93] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#e23488]"
                     onClick={resetFlow}
                   >
                     Back to Home
@@ -582,7 +582,7 @@ export default function ProductsPage() {
                     setCurrentStep('checkout')
                     closeCart()
                   }}
-                  className="w-full rounded-lg bg-fuchsia-600 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-purple-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+                  className="w-full rounded-lg bg-[#F13E93] py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-[#e23488] disabled:cursor-not-allowed disabled:bg-gray-300"
                 >
                   Proceed to Checkout
                 </button>

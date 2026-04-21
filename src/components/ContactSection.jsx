@@ -45,11 +45,11 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="scroll-mt-24 bg-gradient-to-br from-fuchsia-50 via-purple-50 to-violet-50 py-16 sm:py-20"
+      className="scroll-mt-24 bg-gradient-to-br from-[#FFE4EF] via-[#FE9EC7]/35 to-[#FF85BB]/30 py-16 sm:py-20"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center rounded-full border border-pink-200 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-pink-600 shadow-sm">
+          <span className="inline-flex items-center rounded-full border border-[#FF85BB]/45 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#F13E93] shadow-sm">
             Contact & Locations
           </span>
           <h2 className="mt-4 text-3xl font-bold text-gray-900 sm:text-4xl">Visit Us</h2>
@@ -63,10 +63,10 @@ export default function ContactSection() {
               key={branch.id}
               type="button"
               onClick={() => setActiveBranch(branch)}
-              className="group relative overflow-hidden rounded-2xl border border-pink-100 bg-white p-6 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+              className="group relative overflow-hidden rounded-2xl border border-pink-100 bg-white p-6 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#F13E93] focus:ring-offset-2"
             >
-              <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-pink-100/70 blur-2xl transition group-hover:bg-purple-100/70" />
-              <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 text-accent transition-transform duration-300 group-hover:scale-110">
+              <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-pink-100/70 blur-2xl transition group-hover:bg-[#FF85BB]/50" />
+              <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-[#F13E93]/10 text-[#F13E93] transition-transform duration-300 group-hover:scale-110">
                 <MapPin className="h-6 w-6" strokeWidth={1.5} aria-hidden />
               </div>
               <h3 className="relative mt-4 text-base font-semibold text-gray-900">
@@ -75,7 +75,7 @@ export default function ContactSection() {
               <p className="relative mt-2 text-sm text-gray-500">
                 View location photo and branch team
               </p>
-              <span className="relative mt-4 inline-flex text-xs font-semibold uppercase tracking-wide text-accent">
+              <span className="relative mt-4 inline-flex text-xs font-semibold uppercase tracking-wide text-[#F13E93]">
                 Open details
               </span>
             </button>
@@ -98,7 +98,7 @@ export default function ContactSection() {
               </div>
               {activeTeam.length > 0 && (
                 <div className="rounded-2xl border border-gray-100 bg-gray-50 p-4">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-accent">
+                  <p className="text-sm font-semibold uppercase tracking-wide text-[#F13E93]">
                     Team assigned to this branch
                   </p>
                   <ul className="mt-3 grid gap-3 text-sm">
@@ -109,8 +109,8 @@ export default function ContactSection() {
                           key={member.name}
                           className="flex items-center gap-3 rounded-xl bg-white px-3 py-2 shadow-sm"
                         >
-                          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-accent/10">
-                            <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-accent">
+                          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#F13E93]/10">
+                            <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-[#F13E93]">
                               {getInitials(member.name)}
                             </div>
                             <img
@@ -124,7 +124,7 @@ export default function ContactSection() {
                           </div>
                           <div className="min-w-0">
                             <p className="font-semibold text-gray-900">{member.name}</p>
-                            <p className="text-xs font-medium uppercase tracking-wide text-accent">
+                            <p className="text-xs font-medium uppercase tracking-wide text-[#F13E93]">
                               {member.role}
                             </p>
                             {member.specialty && (

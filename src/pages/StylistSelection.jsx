@@ -176,7 +176,7 @@ export default function StylistSelection() {
     return (
       <div className="mx-auto max-w-md px-4 py-12 text-center">
         <p className="text-gray-600">No booking information found.</p>
-        <Link to="/book" className="mt-4 inline-block text-accent hover:underline">
+        <Link to="/book" className="mt-4 inline-block text-[#F13E93] hover:underline">
           Start over
         </Link>
       </div>
@@ -186,19 +186,19 @@ export default function StylistSelection() {
   return (
     <div className="booking-flow-bg relative min-h-screen overflow-hidden">
       <div className="pointer-events-none absolute -left-16 top-24 h-56 w-56 rounded-full bg-pink-200/60 blur-3xl" />
-      <div className="pointer-events-none absolute -right-16 bottom-16 h-64 w-64 rounded-full bg-violet-200/55 blur-3xl" />
+      <div className="pointer-events-none absolute -right-16 bottom-16 h-64 w-64 rounded-full bg-pink-200/65 blur-3xl" />
       <div className="mx-auto max-w-4xl px-4 py-8 sm:py-12">
         <Link
           to="/book/services"
           state={{ branchId, branchName }}
-          className="mb-6 inline-flex items-center gap-2 text-gray-600 transition hover:text-accent"
+          className="mb-6 inline-flex items-center gap-2 text-gray-600 transition hover:text-[#F13E93]"
         >
           <ArrowLeft className="h-5 w-5" />
           Back to services
         </Link>
 
         <div className="mb-8">
-          <p className="text-sm font-medium text-accent">Step 3 of 4</p>
+          <p className="text-sm font-medium text-[#F13E93]">Step 3 of 4</p>
           <h1 className="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl">
             Choose your stylist
           </h1>
@@ -218,7 +218,7 @@ export default function StylistSelection() {
                 className="flex items-start justify-between gap-2"
               >
                 <span className="min-w-0 pr-2 font-medium text-gray-900">{service.name}</span>
-                <span className="shrink-0 text-accent font-semibold">{service.price}</span>
+                <span className="shrink-0 font-semibold text-[#F13E93]">{service.price}</span>
               </li>
             ))}
           </ul>
@@ -239,13 +239,13 @@ export default function StylistSelection() {
                 key={stylist.name}
                 type="button"
                 onClick={() => toggleStylist(stylist)}
-                className={`booking-fade-up booking-interactive-card flex flex-col items-start rounded-2xl border-2 bg-white/92 p-5 text-left shadow-md backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${
-                  isSelected ? 'border-accent' : 'border-gray-200'
+                className={`booking-fade-up booking-interactive-card flex flex-col items-start rounded-2xl border-2 bg-white/92 p-5 text-left shadow-md backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-[#F13E93] focus:ring-offset-2 ${
+                  isSelected ? 'border-[#F13E93]' : 'border-gray-200'
                 }`}
                 style={{ animationDelay: `${idx * 80}ms` }}
               >
-                <div className="relative h-12 w-12 overflow-hidden rounded-full bg-accent/10">
-                  <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-accent">
+                <div className="relative h-12 w-12 overflow-hidden rounded-full bg-[#F13E93]/10">
+                  <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-[#F13E93]">
                     {getInitials(stylist.name)}
                   </div>
                   <img
@@ -282,7 +282,7 @@ export default function StylistSelection() {
                   </p>
                 )}
                 {isSelected && (
-                  <p className="mt-2 inline-flex items-center gap-1 rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+                  <p className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#F13E93]/10 px-3 py-1 text-xs font-medium text-[#F13E93]">
                     <Users className="h-3 w-3" />
                     Selected
                   </p>
@@ -322,7 +322,7 @@ Our receptionist will personally select the best available stylist for you upon 
             type="button"
             onClick={handleContinue}
             disabled={!hasNoAvailableStylist && !selectedStylists.length}
-            className="rounded-lg bg-accent px-6 py-3 text-sm font-medium text-white shadow-md transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-600"
+            className="rounded-lg bg-[#F13E93] px-6 py-3 text-sm font-medium text-white shadow-md transition hover:bg-[#e23488] disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-600"
           >
             {hasNoAvailableStylist
               ? 'Confirm your appointment'

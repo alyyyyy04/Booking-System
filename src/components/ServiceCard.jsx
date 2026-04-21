@@ -23,12 +23,14 @@ export default function ServiceCard({
       </div>
       <div className="service-card-body flex flex-1 flex-col p-6">
         <div className="flex min-w-0 items-center gap-2">
-          {Icon && <Icon className="service-card-icon h-5 w-5 shrink-0 text-accent" aria-hidden />}
+          {Icon && (
+            <Icon className="service-card-icon h-5 w-5 shrink-0 text-[#FF3E9B]" aria-hidden />
+          )}
           <h3 className="min-w-0 text-xl font-semibold text-gray-900">{title}</h3>
         </div>
         <p className="mt-2 flex-1 text-gray-600">{description}</p>
         <div className="mt-4 flex items-center justify-between">
-          <span className="text-lg font-semibold text-accent">{price}</span>
+          <span className="text-lg font-semibold text-[#FF3E9B]">{price}</span>
           <span className="flex items-center gap-1 text-sm text-gray-500">
             <Clock className="h-4 w-4" aria-hidden />
             {duration}
@@ -37,7 +39,7 @@ export default function ServiceCard({
         <button
           type="button"
           onClick={onCtaClick}
-          className="service-card-cta mt-4 w-full rounded-lg bg-accent py-3 text-center font-medium text-white transition hover:bg-accent-dark"
+          className="service-card-cta mt-4 w-full rounded-lg bg-[#FF3E9B] py-3 text-center font-medium text-white transition hover:bg-[#e7358d]"
         >
           <span className="inline-flex items-center gap-2">
             {ctaLabel}
